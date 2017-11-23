@@ -41,5 +41,10 @@
 	  <dispatcher>INCLUDE</dispatcher>
 	  <dispatcher>ERROR</dispatcher>
 	</filter-mapping>
+	
+	<context-param>
+		<param-name>javax.faces.VALIDATE_EMPTY</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 </web-app>

@@ -1,33 +1,71 @@
 package de.rgse.brewlog.view.beans;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.authc.credential.PasswordMatcher;
+import org.apache.shiro.authc.credential.PasswordService;
+import org.slf4j.Logger;
+
+import de.rgse.brewlog.decorators.Brew;
+import de.rgse.brewlog.domain.auth.User;
+import de.rgse.brewlog.repository.UserRepository;
 
 @Named
 @RequestScoped
 public class Register {
 
-	@PersistenceContext(unitName = "brew-logs-pu")
-	private EntityManager entityManager;
-
+	@Inject
+	private UserRepository repository;
+	
+	@Inject @Brew
+	private PasswordService passwordService;
+	
+	@Inject @Brew
+	private Logger logger;
+	
+	private String userName;
+	private String password;
+	private String passwordRepeat;
+	
 	@Transactional
-	public void registrate(Object object) {
-		System.out.println(object);
+	public String submit() {
+		User user = new User(userName, passwordService.encryptPassword(password));
+		repository.add(user);
+		logger.info("user {} added", userName);
+		
+		
+
+		return "/login.xhtml?faces-redirect=true";
+	}
+	
+	public String getUserName() {
+		return userName;
 	}
 
-	private String generatePassword(String plainTextPassword) {
-		RandomNumberGenerator rng = new SecureRandomNumberGenerator();
-		Object salt = rng.nextBytes();
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-		// Now hash the plain-text password with the random salt and multiple
-		// iterations and then Base64-encode the value (requires less space than Hex):
-		return new Sha256Hash(plainTextPassword, salt, 1024).toBase64();
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordRepeat() {
+		return passwordRepeat;
+	}
+
+	public void setPasswordRepeat(String passwordRepeat) {
+		this.passwordRepeat = passwordRepeat;
+	}
+
+	public void passwordsMatch() {
+		
 	}
 }

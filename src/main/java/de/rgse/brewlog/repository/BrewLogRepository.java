@@ -1,51 +1,35 @@
 package de.rgse.brewlog.repository;
 
-import java.util.List;
-
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import com.querydsl.core.QueryMetadata;
-import com.querydsl.jpa.impl.JPAQuery;
-
 import de.rgse.brewlog.decorators.Brew;
 import de.rgse.brewlog.domain.BrewLog;
 
+@Brew
 @Dependent
-public class BrewLogRepository implements EntityRepository<BrewLog>{
+public class BrewLogRepository extends EntityRepository<BrewLog> {
 
-	@Inject @Brew
-	private EntityManager em;
+	@Inject
+	public BrewLogRepository(@Brew EntityManager entityManager) {
+		super(entityManager);
+	}
 
 	@Override
 	public void add(BrewLog entity) {
-		
-		if(entity.getId() == null) {
-			em.persist(entity);
-		
+
+		if (entity.getId() == null) {
+			getEntityManager().persist(entity);
+
 		} else {
-			em.merge(entity);
+			getEntityManager().merge(entity);
 		}
 	}
 
 	@Override
-	public void remove(BrewLog entity) {
-		BrewLog brewLog = em.find(BrewLog.class, entity.getId());
-		em.remove(brewLog);
-	}
-
-	@Override
 	public BrewLog update(BrewLog entity) {
-		return em.merge(entity);
+		return getEntityManager().merge(entity);
 	}
 
-	@Override
-	public List<BrewLog> query(Specification<BrewLog> specification) {
-		JPAQuery<BrewLog> query = specification.getQuery();
-		
-		QueryMetadata metadata = query.getMetadata();
-		return new JPAQuery<BrewLog>(em, metadata).fetch();
-	}
-	
 }

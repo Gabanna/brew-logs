@@ -13,7 +13,7 @@ import org.primefaces.model.menu.MenuModel;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class MenuView implements Serializable {
+public class Menu implements Serializable {
 
 	private MenuModel model;
 	

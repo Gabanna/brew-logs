@@ -16,7 +16,9 @@
 	<composite:implementation>
 		<h:form>
 			<p:growl id="messages" showDetail="false" />
-			<p:menu model="#{menuView.model}" />
+			<p:menu model="#{menu.model}" />
+			<p:commandButton value="Logout via JSF action" id="logout"
+				actionListener="#{logout.submit}" ajax="false" />
 		</h:form>
 	</composite:implementation>
 </body>

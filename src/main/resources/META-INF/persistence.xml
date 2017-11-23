@@ -6,17 +6,15 @@
 	<persistence-unit name="brew-logs-pu">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
 		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-
 		<shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
-
 		<validation-mode>AUTO</validation-mode>
 
 		<properties>
-			<property name="javax.persistence.schema-generation.database.action"
-				value="create" />
+			<property name="javax.persistence.sql-load-script-source"
+				value="META-INF/data.sql" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 		</properties>
-		
+
 	</persistence-unit>
 </persistence>

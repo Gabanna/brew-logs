@@ -3,12 +3,18 @@ package de.rgse.brewlog.domain;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import de.rgse.brewlog.domain.auth.User;
 
 @Entity
 @SuppressWarnings("serial")
 public class BrewLog extends BaseDomain<Long> {
 
+	@ManyToOne
+	private User user;
+	
 	private String name;
 
 	private Boolean completed;

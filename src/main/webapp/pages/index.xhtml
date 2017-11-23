@@ -11,13 +11,10 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
-			<p:spinner />
-			<commons:menu />
+		</ui:define>
 
-			<h:form>
-				<p:commandButton value="Logout via JSF action" id="logout"
-					actionListener="#{logout.submit}" ajax="false" />
-			</h:form>
+		<ui:define name="menu">
+			<commons:menu />
 		</ui:define>
 	</ui:composition>
 </f:view>

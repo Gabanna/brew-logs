@@ -4,26 +4,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
 <f:view>
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
-    <h2>Register</h2>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" />
-        <br/>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
-        <br/>
-        <label for="rememberMe">Remember me:</label>
-        <input type="checkbox" id="rememberMe" name="rememberMe" value="true" />
-        <br/>
-        <input type="submit" value="Login" />
-        <span class="error">#{shiroLoginFailure}</span>
-    </form>
-       </ui:define>
+			<h2>Register</h2>
+			<h:form>
+				<label for="username">Username:</label>
+				<p:inputText id="username" name="username"
+					value="${register.userName}" validator="#{usernameValidator.validate}">
+					<f:ajax event="keyup" execute="@this" render="usernameMessage"
+						onevent="console.info('called')" />
+				</p:inputText>
+				<p:message id="usernameMessage" for="username"></p:message>
+				<br />
+				<label for="password">Password:</label>
+				<p:password id="password" value="#{register.password}"></p:password>
+				<br />
+				<label for="passwordRepeat">Wiederholen:</label>
+				<p:password id="passwordRepeat" value="#{register.passwordRepeat}"></p:password>
+				<br />
+				<p:commandButton action="#{register.submit}" value="Register"/>
+			</h:form>
+		</ui:define>
 
 	</ui:composition>
 </f:view>

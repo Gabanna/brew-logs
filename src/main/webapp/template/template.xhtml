@@ -11,27 +11,29 @@
 
 <h:body>
 
-	<div>
+	<header>
+		<ui:insert name="header">
+			<ui:include src="/template/common/header.xhtml" />
+		</ui:insert>
+	</header>
 
-		<div id="header">
-			<ui:insert name="header">
-				<ui:include src="/template/common/header.xhtml" />
-			</ui:insert>
-		</div>
+	<main>
+		<ui:insert name="content">
+			<ui:include src="/template/common/content.xhtml" />
+		</ui:insert>
+	</main>
+	
+	<aside>
+		<nav>
+		<ui:insert name="menu" />
+		</nav>
+	</aside>
 
-		<div id="content">
-			<ui:insert name="content">
-				<ui:include src="/template/common/content.xhtml" />
-			</ui:insert>
-		</div>
-
-		<div id="footer">
-			<ui:insert name="footer">
-				<ui:include src="/template/common/footer.xhtml" />
-			</ui:insert>
-		</div>
-
-	</div>
+	<footer>
+		<ui:insert name="footer">
+			<ui:include src="/template/common/footer.xhtml" />
+		</ui:insert>
+	</footer>
 
 </h:body>
 </html>

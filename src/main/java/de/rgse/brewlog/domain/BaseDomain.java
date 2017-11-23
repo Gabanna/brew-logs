@@ -1,6 +1,5 @@
 package de.rgse.brewlog.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
@@ -15,7 +14,7 @@ import javax.persistence.Version;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
-public class BaseDomain<T> implements Serializable {
+public class BaseDomain<T> implements IdProvider<T> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

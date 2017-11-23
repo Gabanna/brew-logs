@@ -22,6 +22,8 @@ public class Logout {
 	
 	public void submit() throws IOException {
 		logger.info("logging out");
+
+		SecurityUtils.getSubject().checkPermission("test");
 		
 		if (SecurityUtils.getSubject().hasRole("root")) {
 			final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
