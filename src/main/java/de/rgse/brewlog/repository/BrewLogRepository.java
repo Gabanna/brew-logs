@@ -1,5 +1,7 @@
 package de.rgse.brewlog.repository;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -9,7 +11,7 @@ import de.rgse.brewlog.domain.BrewLog;
 
 @Brew
 @Dependent
-public class BrewLogRepository extends EntityRepository<BrewLog> {
+public class BrewLogRepository extends EntityRepository<BrewLog> implements Serializable {
 
 	@Inject
 	public BrewLogRepository(@Brew EntityManager entityManager) {

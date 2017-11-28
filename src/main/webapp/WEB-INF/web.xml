@@ -5,46 +5,4 @@
 
 	<display-name>brew-log-core</display-name>
 
-	<servlet>
-		<servlet-name>FacesServlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-		<enabled>true</enabled>
-		<async-supported>true</async-supported>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>FacesServlet</servlet-name>
-		<url-pattern>/faces/*</url-pattern>
-	</servlet-mapping>
-
-	<welcome-file-list>
-		<welcome-file>/faces/pages/index.xhtml</welcome-file>
-	</welcome-file-list>
-	
-	<!--Apache SHIRO config-->
-	<listener>
-	  <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener
-	  </listener-class>
-	</listener>
-
-	<filter>
-	  <filter-name>shiroFilter</filter-name>
-	  <filter-class>org.apache.shiro.web.servlet.ShiroFilter
-	  </filter-class>
-	</filter>
-	<filter-mapping>
-	  <filter-name>shiroFilter</filter-name>
-	  <url-pattern>/*</url-pattern>
-	  <dispatcher>REQUEST</dispatcher>
-	  <dispatcher>FORWARD</dispatcher>
-	  <dispatcher>INCLUDE</dispatcher>
-	  <dispatcher>ERROR</dispatcher>
-	</filter-mapping>
-	
-	<context-param>
-		<param-name>javax.faces.VALIDATE_EMPTY</param-name>
-		<param-value>true</param-value>
-	</context-param>
-
 </web-app>

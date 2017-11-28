@@ -21,7 +21,7 @@ public class BrewLog extends BaseDomain<Long> {
 
 	@OneToOne
 	private Mashing mashing;
-
+	
 	@OneToOne
 	private Boiling boiling;
 
@@ -40,6 +40,14 @@ public class BrewLog extends BaseDomain<Long> {
 	@OneToOne
 	private Tasting tasting;
 
+	public BrewLog(String name) {
+		this.name = name;
+	}
+
+	public BrewLog() {
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -55,7 +63,7 @@ public class BrewLog extends BaseDomain<Long> {
 	public void setCompleted(Boolean completed) {
 		this.completed = completed;
 	}
-
+	
 	public Mashing getMashing() {
 		return mashing;
 	}
@@ -87,7 +95,7 @@ public class BrewLog extends BaseDomain<Long> {
 	public void setBottling(Bottling bottling) {
 		this.bottling = bottling;
 	}
-
+	
 	public PostFermantation getPostFermantation() {
 		return postFermantation;
 	}
@@ -111,13 +119,34 @@ public class BrewLog extends BaseDomain<Long> {
 	public void setType(BeerType type) {
 		this.type = type;
 	}
-
+	
 	public LocalDateTime getStartTime() {
 		return mashing == null ? null : mashing.getStart();
 	}
 
 	public LocalDateTime getEndTime() {
 		return tasting == null ? null : tasting.getEnd();
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public BrewLogStatus getStatus() {
+		BrewLogStatus result = BrewLogStatus.CREATED;
+		
+		if(getEndTime() != null) {
+			result = BrewLogStatus.COMPLETED;
+			
+		} else if(getStartTime() != null) {
+			result = BrewLogStatus.STARTED;
+		}
+		
+		return result;
 	}
 
 }

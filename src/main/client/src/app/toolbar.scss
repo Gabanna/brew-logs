@@ -1,0 +1,11 @@
+.toolbar {
+    .toolbar-background {
+        background-color: color($colors, primary);
+    }
+    
+    .toolbar-content {
+        .toolbar-title {
+            color: color($colors, light);
+        }
+    }
+}

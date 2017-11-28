@@ -1,16 +1,18 @@
 package de.rgse.brewlog.repository;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.validation.constraints.NotNull;
 
 import de.rgse.brewlog.decorators.Brew;
 import de.rgse.brewlog.domain.auth.Role;
 import de.rgse.brewlog.domain.auth.User;
 
+@Brew
 @Dependent
-public class UserRepository extends EntityRepository<User> {
+public class UserRepository extends EntityRepository<User> implements Serializable {
 	
 	@Inject
 	public UserRepository(@Brew EntityManager entityManager) {

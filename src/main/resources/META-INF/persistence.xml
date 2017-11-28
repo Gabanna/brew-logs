@@ -13,7 +13,7 @@
 		<properties>
 			<property name="javax.persistence.sql-load-script-source"
 				value="META-INF/data.sql" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>
 
 	</persistence-unit>
