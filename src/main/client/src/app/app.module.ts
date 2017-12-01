@@ -12,13 +12,16 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
 import {LoginPage} from '../pages/login/login.page';
+import { User } from '../model/user.model';
+import { RegisterDialog } from '../dialogs/register/register.dialog';
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegisterDialog
   ],
   imports: [
     BrowserModule,
@@ -30,13 +33,15 @@ import {LoginPage} from '../pages/login/login.page';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegisterDialog
   ],
   providers: [
     StatusBar,
     HttpClient,
     SplashScreen,
     OAuthService,
+    User,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -4,6 +4,8 @@ public class Configuration implements Cloneable {
 
 	private DataSourceConfig dataSource;
 
+	private String apiKey;
+
 	public DataSourceConfig getDataSourceConfig() {
 		return dataSource;
 	}
@@ -12,9 +14,12 @@ public class Configuration implements Cloneable {
 		this.dataSource = dataSourceConfig;
 	}
 
-	@Override
-	public String toString() {
-		return "Configuration [dataSource=" + dataSource + "]";
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
 	}
 
 	@Override

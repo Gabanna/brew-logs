@@ -1,0 +1,31 @@
+<ion-header>
+    
+    <ion-navbar>
+        <ion-title>Registrieren</ion-title>
+        <ion-buttons end>
+        <button ion-button (click)="closeModal()">Close</button>
+        </ion-buttons>
+    </ion-navbar>
+    
+    </ion-header>
+    
+    
+    <ion-content padding>
+    
+        <form (submit)="submit()">
+            <ion-item>
+                <ion-label color="primary" stacked>Username</ion-label>
+                <ion-input [(ngModel)]="userName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Password</ion-label>
+                <ion-input [(ngModel)]="password"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Password repeated</ion-label>
+                <ion-input [(ngModel)]="passwordRepeat"></ion-input>
+            </ion-item>
+            <button ion-button outline type="submit">Registrieren</button>
+        </form>
+
+    </ion-content>

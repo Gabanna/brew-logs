@@ -1,6 +1,7 @@
 package de.rgse.brewlog.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -20,8 +21,8 @@ public abstract class EntityRepository<T extends IdProvider<?>> {
 		this.entityManager = entityManager;
 	}
 	
-	public <E> T find(Class<T> clazz, E id) {
-		return entityManager.find(clazz, id);
+	public <E> Optional<T> find(Class<T> clazz, E id) {
+		return Optional.ofNullable(entityManager.find(clazz, id));
 	}
 	
 	protected EntityManager getEntityManager() {

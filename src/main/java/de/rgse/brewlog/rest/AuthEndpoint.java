@@ -1,95 +1,81 @@
 package de.rgse.brewlog.rest;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.Optional;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
+import javax.inject.Inject;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.apache.oltu.oauth2.as.issuer.MD5Generator;
-import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
-import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
-import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;
-import org.apache.oltu.oauth2.as.request.OAuthTokenRequest;
-import org.apache.oltu.oauth2.as.response.OAuthASResponse;
-import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
-import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
-import org.apache.oltu.oauth2.common.message.OAuthResponse;
+import de.rgse.brewlog.configuration.Configuration;
+import de.rgse.brewlog.decorators.Brew;
+import de.rgse.brewlog.domain.auth.User;
+import de.rgse.brewlog.repository.UserRepository;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.undertow.util.Headers;
 
 @Path("auth")
 public class AuthEndpoint {
 
-	@GET
+	@Inject @Brew
+	private UserRepository userRepository;
+	
+	@Inject @Brew
+	private Configuration configuration;
+	
+	@POST
 	@Path("{username}")
-	public Response doLogin(@Context HttpServletRequest request) throws OAuthSystemException, URISyntaxException {
-		ResponseBuilder builder = Response.noContent();
+	public Response doLogin(User user) {
+		ResponseBuilder builder = Response.status(Response.Status.UNAUTHORIZED);
 
 		try {
-			// dynamically recognize an OAuth profile based on request characteristic
-			// (params,
-			// method, content type etc.), perform validation
-			OAuthAuthzRequest oauthRequest = new OAuthAuthzRequest(request);
+			Optional<User> found = userRepository.find(User.class, user.getId());
+				
+			if(found.isPresent() && found.get().equals(user)) {
+				JwtBuilder jwt = found.get().getJwt();
+				String apiKey = configuration.getApiKey();
 
-			// build OAuth response
-			OAuthResponse resp = OAuthASResponse.authorizationResponse(request, HttpServletResponse.SC_FOUND)
-					.setCode("123").location("https://www.google.de").buildQueryMessage();
-
-			builder = Response.status(resp.getResponseStatus()).location(new URI(resp.getLocationUri()));
-
-			// if something goes wrong
-		} catch (OAuthProblemException ex) {
-			URI uri = new URI(ex.getRedirectUri());
-
-			final OAuthResponse resp = OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND).error(ex)
-					.location(uri.getPath()).buildQueryMessage();
-
-			builder = Response.status(resp.getResponseStatus()).location(uri);
-
-		} catch (OAuthSystemException e) {
-			builder = Response.serverError().entity(e.getLocalizedMessage());
-		}
-
-		return builder.build();
-	}
-
-	@GET
-	@Path("token")
-	public Response getToken(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, OAuthSystemException {
-
-		ResponseBuilder builder = Response.noContent();
-
-		OAuthTokenRequest oauthRequest = null;
-
-		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
-
-		try {
-			oauthRequest = new OAuthTokenRequest(request);
-
-			// some code
-			String accessToken = oauthIssuerImpl.accessToken();
-			String refreshToken = oauthIssuerImpl.refreshToken();
-
-			// some code
-			OAuthResponse r = OAuthASResponse.tokenResponse(HttpServletResponse.SC_OK).setAccessToken(accessToken)
-					.setExpiresIn("3600").setRefreshToken(refreshToken).buildJSONMessage();
-
-			builder = Response.status(r.getResponseStatus()).entity(r.getBody());
-
-		} catch (OAuthProblemException ex) {
-			OAuthResponse r = OAuthResponse.errorResponse(Response.Status.UNAUTHORIZED.getStatusCode()).error(ex).buildJSONMessage();
-			builder = Response.status(r.getResponseStatus()).entity(r.getBody());
-		}
+				if(apiKey != null) {
+					jwt.signWith(SignatureAlgorithm.HS512, apiKey);
+				}
+				
+				builder = Response.status(Response.Status.NO_CONTENT).header(Headers.AUTHORIZATION_STRING, jwt.compact());
+			}
 		
-		return builder.build();
+		} catch(Exception exception) {
+			exception.printStackTrace();
+			builder = Response.serverError().entity(exception.getMessage());
+		}
 
+		return builder.build();
 	}
+	
+	@PUT
+	@Path("{username}")
+	public Response createUser(User user) {
+		ResponseBuilder builder = Response.noContent();
+
+		try {
+			userRepository.add(user);
+			JwtBuilder jwt = user.getJwt();
+			String apiKey = configuration.getApiKey();
+
+			if(apiKey != null) {
+				jwt.signWith(SignatureAlgorithm.HS512, apiKey);
+			}
+			
+			builder = Response.status(Response.Status.NO_CONTENT).header(Headers.AUTHORIZATION_STRING, jwt.compact());
+		
+		
+		} catch(Exception exception) {
+			exception.printStackTrace();
+			builder = Response.serverError().entity(exception.getLocalizedMessage());
+		}
+
+		return builder.build();
+	}
+
 }
