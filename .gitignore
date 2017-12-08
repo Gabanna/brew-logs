@@ -16,6 +16,7 @@ buildNumber.properties
 .project
 .tern-project
 .classpath
+.factorypath
 
 #vscode
 **/.vscode
@@ -33,13 +34,14 @@ buildNumber.properties
 /node_modules
 
 # IDEs and editors
-/.idea
+**/.idea
 .project
 .classpath
 .c9/
 *.launch
 .settings/
 *.sublime-workspace
+*.iml
 
 # IDE - VSCode
 .vscode/*
