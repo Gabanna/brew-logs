@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.camunda.bpm.engine.runtime.CaseExecution;
 import org.camunda.bpm.engine.runtime.CaseInstance;
+import org.camunda.bpm.engine.task.Task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -39,14 +40,19 @@ public class TaskVo {
 
 		setState(task);
 
-		if(CaseInstance.class.isAssignableFrom(task.getClass())) {
+		if (CaseInstance.class.isAssignableFrom(task.getClass())) {
 			CaseInstance caseInstance = (CaseInstance) task;
 			businessKey = caseInstance.getBusinessKey();
 			caseInstanceId = caseInstance.getCaseInstanceId();
 		}
 	}
 
-	public static List<TaskVo> parse(List<CaseExecution> list) {
+	public TaskVo(Task task) {
+		id = task.getId();
+		name = task.getName();
+	}
+
+	public static List<TaskVo> parseCase(List<CaseExecution> list) {
 		return list.stream().map(task -> new TaskVo(task)).collect(Collectors.toList());
 	}
 
@@ -62,5 +68,9 @@ public class TaskVo {
 		} else if (task.isTerminated()) {
 			state = CaseState.TERMINATED;
 		}
+	}
+
+	public static List<TaskVo> parseTask(List<Task> list) {
+		return list.stream().map(task -> new TaskVo(task)).collect(Collectors.toList());
 	}
 }
