@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.11.3">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.11.3">
   <bpmn:collaboration id="Collaboration_13118tp">
     <bpmn:participant id="Participant_Maischen" name="Maischen" processRef="Process_Maischen" />
   </bpmn:collaboration>
@@ -11,6 +11,11 @@
       <bpmn:incoming>SequenceFlow_16n3j1h</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="UserTask_Einmaischen" name="Einmaischen">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="Name" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1a3evt9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hxba3s</bpmn:outgoing>
     </bpmn:userTask>

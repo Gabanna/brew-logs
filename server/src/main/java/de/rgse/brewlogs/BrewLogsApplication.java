@@ -12,10 +12,7 @@ public class BrewLogsApplication {
     public static void main(String... args) {
         ConfigurableApplicationContext context = SpringApplication.run(BrewLogsApplication.class, args);
         RuntimeService runtimeService = context.getBean(RuntimeService.class);
-        
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_Brauprozess", "123");
-        
-        org.slf4j.LoggerFactory.getLogger(BrewLogsApplication.class).info(String.format("%s startetd", processInstance.getId()));
     }
 
 }
