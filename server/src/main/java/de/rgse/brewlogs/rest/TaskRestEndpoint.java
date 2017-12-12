@@ -1,11 +1,11 @@
 package de.rgse.brewlogs.rest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.ws.rs.core.Response;
 
 import org.camunda.bpm.engine.CaseService;
+import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.runtime.CaseExecution;
 import org.camunda.bpm.engine.task.Task;
@@ -13,12 +13,12 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.rgse.brewlogs.converter.TaskConverter;
 import de.rgse.brewlogs.vo.TaskVo;
 
 @RestController
@@ -30,6 +30,12 @@ public class TaskRestEndpoint {
 
 	@Autowired
 	private CaseService caseService;
+	
+	@Autowired
+	private FormService formService;
+	
+	@Autowired
+	private TaskConverter taskconverter;
 
 	@Autowired
 	private Logger logger;
@@ -41,13 +47,14 @@ public class TaskRestEndpoint {
 
 		try {
 			List<Task> bpmTasks = taskService.createTaskQuery().processInstanceBusinessKey(brewLogId).list();
+			bpmTasks = taskService.createTaskQuery().caseInstanceBusinessKey(brewLogId).list();
 			
-			List<CaseExecution> cmmnTasks = caseService.createCaseExecutionQuery().caseInstanceBusinessKey(brewLogId)
+			/*List<CaseExecution> cmmnTasks = caseService.createCaseExecutionQuery().caseInstanceBusinessKey(brewLogId)
 					.active().list().stream().filter(task -> task.getActivityType().equals("humanTask"))
-					.collect(Collectors.toList());
-			
-			List<TaskVo> tasks = TaskVo.parseTasks(bpmTasks);
-			tasks.addAll(TaskVo.parseCases(cmmnTasks));
+					.collect(Collectors.toList());*/
+
+			List<TaskVo> tasks = taskconverter.parseTasks(bpmTasks);
+			/*tasks.addAll(TaskVo.parseCases(cmmnTasks, formService));*/
 
 			response = ResponseEntity.ok().body(tasks);
 
@@ -67,7 +74,7 @@ public class TaskRestEndpoint {
 		try {
 			List<CaseExecution> cmmnTasks = caseService.createCaseExecutionQuery().caseInstanceBusinessKey(brewLogId)
 					.enabled().list();
-			List<TaskVo> tasks = TaskVo.parseCases(cmmnTasks);
+			List<TaskVo> tasks = taskconverter.parseCases(cmmnTasks, formService);
 
 			response = ResponseEntity.ok().body(tasks);
 

@@ -17,7 +17,7 @@
     <bpmn:endEvent id="EndEvent_0kf9l81">
       <bpmn:incoming>SequenceFlow_0jr7mgz</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:callActivity id="CallActivity_Maischen" name="Maischen" camunda:caseRef="Case_Einmaischen">
+    <bpmn:callActivity id="CallActivity_Maischen" name="Maischen" camunda:caseRef="Case_Maischen">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
       </bpmn:extensionElements>

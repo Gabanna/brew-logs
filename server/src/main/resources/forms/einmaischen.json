@@ -1,0 +1,7 @@
+[
+	{
+		"name": "Biername",
+		"type": "String",
+		"required": false
+	}
+]

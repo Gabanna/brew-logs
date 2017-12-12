@@ -1,7 +1,6 @@
 package de.rgse.brewlogs.vo;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.camunda.bpm.engine.runtime.CaseExecution;
 import org.camunda.bpm.engine.runtime.CaseInstance;
@@ -35,6 +34,31 @@ public class TaskVo {
 	@JsonProperty
 	private String caseInstanceId;
 
+	@JsonProperty
+	private List<FormElementVo> form;
+
+	public TaskVo(CaseExecution task, List<FormElementVo> form) {
+		this.form = form;
+		id = task.getId();
+		name = task.getActivityName();
+		type = task.getActivityType();
+		required = task.isRequired();
+
+		setState(task);
+
+		if (CaseInstance.class.isAssignableFrom(task.getClass())) {
+			CaseInstance caseInstance = (CaseInstance) task;
+			businessKey = caseInstance.getBusinessKey();
+			caseInstanceId = caseInstance.getCaseInstanceId();
+		}
+	}
+
+	public TaskVo(Task task, List<FormElementVo> form) {
+		this.form = form;
+		id = task.getId();
+		name = task.getName();
+	}
+	
 	public TaskVo(CaseExecution task) {
 		id = task.getId();
 		name = task.getActivityName();
@@ -55,13 +79,7 @@ public class TaskVo {
 		name = task.getName();
 	}
 
-	public static List<TaskVo> parseCases(List<CaseExecution> list) {
-		return list.stream().map(task -> new TaskVo(task)).collect(Collectors.toList());
-	}
-	
-	public static List<TaskVo> parseTasks(List<Task> list) {
-		return list.stream().map(task -> new TaskVo(task)).collect(Collectors.toList());
-	}
+
 
 	private void setState(CaseExecution task) {
 		if (task.isActive()) {

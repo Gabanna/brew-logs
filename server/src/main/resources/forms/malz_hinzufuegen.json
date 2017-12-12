@@ -1,0 +1,12 @@
+[
+	{
+		"name": "Malzname",
+		"type": "String",
+		"required": true
+	},
+	{
+		"name": "Menge in g",
+		"type": "number",
+		"required": true
+	}
+]
