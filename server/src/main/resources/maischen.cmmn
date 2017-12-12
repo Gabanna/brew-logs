@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.11.3">
-  <cmmn:case id="Case_Einmaischen" name="Einmaischen">
-    <cmmn:casePlanModel id="CasePlanModel_Einmaischen" name="Einmaischen">
+<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.11.3">
+  <cmmn:case id="Case_Maischen" name="Maischen">
+    <cmmn:casePlanModel id="CasePlanModel_Maischen" name="Maischen">
       <cmmn:planItem id="PlanItem_0vvaa0f" definitionRef="HumanTask_0prubp7">
         <cmmn:itemControl id="PlanItemControl_02d9r6b">
           <cmmn:requiredRule id="RequiredRule_1lh53kr" />
@@ -56,8 +56,8 @@
             <cmmn:manualActivationRule id="ManualActivationRule_11m73n3" />
           </cmmn:itemControl>
         </cmmn:planItem>
-        <cmmn:humanTask id="HumanTask_1vtwcvb" name="Einmaischen" />
-        <cmmn:humanTask id="HumanTask_1yg2k6c" name="Malz hinzufügen" />
+        <cmmn:humanTask id="HumanTask_1vtwcvb" name="Einmaischen" camunda:formKey="/forms/einmaischen.json" />
+        <cmmn:humanTask id="HumanTask_1yg2k6c" name="Malz hinzufügen" camunda:formKey="/forms/malz_hinzufuegen.json" />
       </cmmn:stage>
       <cmmn:humanTask id="HumanTask_0rvrh33" name="Maltoserast" />
       <cmmn:humanTask id="HumanTask_1b425vp" name="Verzuckerung" />
@@ -67,7 +67,7 @@
   <cmmndi:CMMNDI>
     <cmmndi:CMMNDiagram id="_5a66685b-5f57-4e2f-b1d1-acca4fae04b2">
       <cmmndi:Size xsi:type="dc:Dimension" width="500" height="500" />
-      <cmmndi:CMMNShape id="DI_CasePlanModel_1" cmmnElementRef="CasePlanModel_Einmaischen">
+      <cmmndi:CMMNShape id="DI_CasePlanModel_1" cmmnElementRef="CasePlanModel_Maischen">
         <dc:Bounds x="131" y="74" width="1035" height="446" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
