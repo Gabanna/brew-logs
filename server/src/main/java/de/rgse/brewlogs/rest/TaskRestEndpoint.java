@@ -25,20 +25,21 @@ import de.rgse.brewlogs.vo.TaskVo;
 @RequestMapping("api")
 public class TaskRestEndpoint {
 
-	@Autowired
 	private TaskService taskService;
-
-	@Autowired
 	private CaseService caseService;
-	
-	@Autowired
 	private FormService formService;
-	
-	@Autowired
 	private TaskConverter taskconverter;
+	private Logger logger;
 
 	@Autowired
-	private Logger logger;
+	public TaskRestEndpoint(TaskService taskService, CaseService caseService, FormService formService,
+			TaskConverter taskconverter, Logger logger) {
+		this.taskService = taskService;
+		this.caseService = caseService;
+		this.formService = formService;
+		this.taskconverter = taskconverter;
+		this.logger = logger;
+	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "brew-logs/{brewLogId}/tasks/active")
 	@ResponseBody
@@ -48,13 +49,7 @@ public class TaskRestEndpoint {
 		try {
 			List<Task> bpmTasks = taskService.createTaskQuery().processInstanceBusinessKey(brewLogId).list();
 			bpmTasks = taskService.createTaskQuery().caseInstanceBusinessKey(brewLogId).list();
-			
-			/*List<CaseExecution> cmmnTasks = caseService.createCaseExecutionQuery().caseInstanceBusinessKey(brewLogId)
-					.active().list().stream().filter(task -> task.getActivityType().equals("humanTask"))
-					.collect(Collectors.toList());*/
-
 			List<TaskVo> tasks = taskconverter.parseTasks(bpmTasks);
-			/*tasks.addAll(TaskVo.parseCases(cmmnTasks, formService));*/
 
 			response = ResponseEntity.ok().body(tasks);
 
@@ -85,7 +80,6 @@ public class TaskRestEndpoint {
 
 		return response;
 	}
-	
 
 	@RequestMapping(method = RequestMethod.PUT, path = "tasks/{taskId}/start")
 	@ResponseBody

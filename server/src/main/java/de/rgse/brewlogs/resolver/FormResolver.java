@@ -15,14 +15,17 @@ import de.rgse.brewlogs.vo.FormElementVo;
 @Component
 public class FormResolver {
 
+	@SuppressWarnings("unchecked")
 	public List<FormElementVo> getForm(String formKey) {
 		List<FormElementVo> result = new LinkedList<>();
+		
 		try(InputStream stream = getClass().getResourceAsStream(formKey)) {
 			result = new Gson().fromJson(new InputStreamReader(stream), List.class);
 	
 		}catch(IOException exception) {
 			exception.printStackTrace();
 		}
+		
 		return result;
 	}
 }

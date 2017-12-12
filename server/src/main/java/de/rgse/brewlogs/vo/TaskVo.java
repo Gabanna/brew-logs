@@ -37,26 +37,22 @@ public class TaskVo {
 	@JsonProperty
 	private List<FormElementVo> form;
 
-	public TaskVo(CaseExecution task, List<FormElementVo> form) {
+	public TaskVo(CaseExecution task, String businessKey, List<FormElementVo> form) {
 		this.form = form;
 		id = task.getId();
 		name = task.getActivityName();
 		type = task.getActivityType();
 		required = task.isRequired();
+		this.businessKey = businessKey;
 
 		setState(task);
-
-		if (CaseInstance.class.isAssignableFrom(task.getClass())) {
-			CaseInstance caseInstance = (CaseInstance) task;
-			businessKey = caseInstance.getBusinessKey();
-			caseInstanceId = caseInstance.getCaseInstanceId();
-		}
 	}
 
-	public TaskVo(Task task, List<FormElementVo> form) {
+	public TaskVo(Task task, String businessKey, List<FormElementVo> form) {
 		this.form = form;
 		id = task.getId();
 		name = task.getName();
+		this.businessKey = businessKey;
 	}
 	
 	public TaskVo(CaseExecution task) {
