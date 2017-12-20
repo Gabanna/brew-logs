@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar color="primary">
+    <ion-title>BrewLogPage</ion-title>
+    {{authService.currentUser()?.displayName}}
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <p>{{token}}</p>
+  
+  <ion-list *ngFor="let log of brewLogs">
+    <button ion-item (click)="openBrewLog(log)">
+      <brew-log [value]="log"></brew-log>
+    </button>
+  </ion-list>
+
+</ion-content>

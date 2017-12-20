@@ -16,8 +16,8 @@ public class BrewLogService {
 	@Autowired
 	private RuntimeService runtimeService;
 	
-	public BrewLog startNewBrewLog(String subject) {
-		BrewLog brewLog= repository.save(new BrewLog(subject));
+	public BrewLog startNewBrewLog(String subject, String name) {
+		BrewLog brewLog= repository.save(new BrewLog(subject, name));
 		runtimeService.startProcessInstanceByKey("Process_Brauprozess", brewLog.getId().toString());
 		return brewLog;
 	}

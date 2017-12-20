@@ -1,19 +1,11 @@
 package de.rgse.brewlogs.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class BrewLog {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonProperty
-	private Long id;
+public class BrewLog extends BaseEntity {
 
 	@JsonProperty
 	private String name;
@@ -21,15 +13,11 @@ public class BrewLog {
 	@JsonProperty
 	private String subject;
 
-	protected BrewLog() {
-	}
-
-	public BrewLog(String subject) {
+	protected BrewLog() {}
+	
+	public BrewLog(String subject, String name) {
 		this.subject = subject;
-	}
-
-	public Long getId() {
-		return id;
+		this.name = name;
 	}
 
 	public String getName() {

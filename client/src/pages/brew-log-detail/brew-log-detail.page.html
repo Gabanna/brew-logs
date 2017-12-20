@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ brewLog.name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <section>
+    <header>
+      Todos
+    </header>
+    <ion-list *ngFor="let task of tasks">
+      <button ion-item (click)="openTask(task)">{{task.name}}</button>
+    </ion-list>
+  </section>
+  <section>
+      <header>
+        Optionen
+      </header>
+      <ion-list *ngFor="let option of options">
+        <button ion-item>{{option.name}}</button>
+      </ion-list>
+    </section>
+</ion-content>
