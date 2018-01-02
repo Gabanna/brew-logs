@@ -5,7 +5,7 @@ import { ToastController } from 'ionic-angular';
 export class ErrorService {
 
     constructor(
-        public toastController: ToastController
+        private toastController: ToastController
     ){}
 
     public handleHttpError(error: any) {

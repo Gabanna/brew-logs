@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import config from '../config/config';
 import { BrewLog } from '../model/brewLog.model';
-import _ from 'lodash';
 import { AuthService } from './auth.service';
+import config from '../config/config';
+import _ from 'lodash';
 
 @Injectable()
 export class BrewLogService {
@@ -15,18 +15,42 @@ export class BrewLogService {
 
     public getBrewLogs(): Promise<Array<BrewLog>> {
         return new Promise((resolve, reject) => {
-            let url = config.api.endpoint + '/brew-logs/' + this.authService.currentUser();
-            this.http.get(url).toPromise()
-                .then(data => {
-                    let result = new Array<BrewLog>();
-                    data.json().forEach(element => {
-                        result.push(_.assign(new BrewLog(), element));
+           let unsubscribe = this.authService.onAuthStateChanged(user => {
+                unsubscribe();
+                if(user) {
+                    let url = config.api.endpoint + '/brew-logs/' + encodeURI(this.authService.currentUser().email);
+                    this.http.get(url).toPromise()
+                    .then(data => {
+                        let result = new Array<BrewLog>();
+                        data.json().forEach(element => {
+                            result.push(_.assign(new BrewLog(), element));
+                        });
+                        resolve(result);
+                    })
+                    .catch(error => {
+                        reject(error);
                     });
-                    resolve(result);
+                } else {
+                    reject('not logged in');
+                }
+            });
+        });
+    }  
+
+    public startBrewLog(name: string): Promise<BrewLog> {
+        return new Promise((resolve, reject) => {
+            let body = {
+                name: name,
+                subject: this.authService.currentUser().email
+            };
+            let url = config.api.endpoint + '/brew-logs';
+            this.http.post(url, body).toPromise()
+                .then(data => {
+                    resolve(_.assign(new BrewLog(), data.json()));
                 })
                 .catch(error => {
                     reject(error);
                 });
         });
-    }  
+    }
 }

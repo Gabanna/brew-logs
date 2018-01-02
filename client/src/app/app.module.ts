@@ -14,6 +14,7 @@ import { BrewLogPage } from '../pages/brew-log/brew-log.page';
 import { BrewLogComponent } from '../components/brew-log/brew-log.component';
 import { BrewLogDetailPage } from '../pages/brew-log-detail/brew-log-detail.page';
 import { TaskDetailPage } from '../pages/task-detail/task-detail.page';
+import { FormFieldComponent } from '../components/form-field/form-field.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TaskDetailPage } from '../pages/task-detail/task-detail.page';
     BrewLogDetailPage,
     TaskDetailPage,
     BrewLogComponent,
+    FormFieldComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { TaskDetailPage } from '../pages/task-detail/task-detail.page';
     TaskService,
     SplashScreen,
     BrewLogComponent,
+    FormFieldComponent,
     AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],

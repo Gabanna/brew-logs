@@ -14,7 +14,10 @@ export class TaskDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskDetailsPage');
+  }
+
+  public onClick(): void {
+      console.info(this.task.form);
   }
 
 }
