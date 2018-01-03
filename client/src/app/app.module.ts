@@ -1,3 +1,4 @@
+import { BrewHistoryComponent } from './../components/brew-history/brew-history.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -23,7 +24,8 @@ import { FormFieldComponent } from '../components/form-field/form-field.componen
     BrewLogDetailPage,
     TaskDetailPage,
     BrewLogComponent,
-    FormFieldComponent
+    FormFieldComponent,
+    BrewHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,7 @@ import { FormFieldComponent } from '../components/form-field/form-field.componen
     SplashScreen,
     BrewLogComponent,
     FormFieldComponent,
+    BrewHistoryComponent,
     AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],

@@ -1,7 +1,10 @@
 package de.rgse.brewlogs.vo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.camunda.bpm.engine.history.HistoricTaskInstance;
 import org.camunda.bpm.engine.runtime.CaseExecution;
 import org.camunda.bpm.engine.runtime.CaseInstance;
 import org.camunda.bpm.engine.task.Task;
@@ -35,7 +38,10 @@ public class TaskVo {
 	private String caseInstanceId;
 
 	@JsonProperty
-	private List<FormElementVo> form;
+	private List<FormElementVo> form = new ArrayList<>();
+
+	TaskVo() {
+	}
 
 	public TaskVo(CaseExecution task, String businessKey, List<FormElementVo> form) {
 		this.form = form;
@@ -54,7 +60,22 @@ public class TaskVo {
 		name = task.getName();
 		this.businessKey = businessKey;
 	}
-	
+
+	public TaskVo(HistoricTaskInstance task, String businessKey) {
+		id = task.getId();
+		name = task.getName();
+		this.businessKey = businessKey;
+
+	}
+
+	public TaskVo(HistoricTaskInstance task, String businessKey, List<FormElementVo> form) {
+		id = task.getId();
+		name = task.getName();
+		this.form = form;
+		this.businessKey = businessKey;
+
+	}
+
 	public TaskVo(CaseExecution task) {
 		id = task.getId();
 		name = task.getActivityName();
@@ -75,7 +96,9 @@ public class TaskVo {
 		name = task.getName();
 	}
 
-
+	public List<FormElementVo> getForm() {
+		return Collections.unmodifiableList(form);
+	}
 
 	private void setState(CaseExecution task) {
 		if (task.isActive()) {
@@ -89,5 +112,13 @@ public class TaskVo {
 		} else if (task.isTerminated()) {
 			state = CaseState.TERMINATED;
 		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getBusinessKey() {
+		return businessKey;
 	}
 }

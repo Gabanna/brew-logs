@@ -20,7 +20,10 @@
         Optionen
       </header>
       <ion-list *ngFor="let option of options">
-        <button ion-item>{{option.name}}</button>
+        <button ion-item (click)="activateOption(option)">{{option.name}}</button>
       </ion-list>
+    </section>
+    <section>
+      <brew-history [value]="brewLog"></brew-history>
     </section>
 </ion-content>

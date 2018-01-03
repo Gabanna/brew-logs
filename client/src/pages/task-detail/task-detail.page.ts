@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'page-task-detail',
@@ -9,7 +10,7 @@ export class TaskDetailPage {
 
   private task: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private taskService: TaskService) {
     this.task = navParams.data;
   }
 
@@ -17,7 +18,7 @@ export class TaskDetailPage {
   }
 
   public onClick(): void {
-      console.info(this.task.form);
+      this.taskService.finishTask(this.task).then(() => this.navCtrl.pop());
   }
 
 }

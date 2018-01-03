@@ -6,7 +6,7 @@
 	},
 	{
 		"name": "Menge in g",
-		"type": "number",
+		"type": "Number",
 		"required": true
 	}
 ]

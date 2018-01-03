@@ -36,4 +36,10 @@ export class BrewLogDetailPage {
   public openTask(task: any) : void {
     this.navCtrl.push(TaskDetailPage, task);
   }
+
+  public activateOption(option: any): void {
+    this.taskService.activateOption(option).then(task => {
+      this.openTask(task);
+    });
+  }
 }
