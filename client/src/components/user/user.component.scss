@@ -1,0 +1,10 @@
+user{
+    $padding: 5px;
+    position: absolute;
+    top: $padding;
+    right: $padding;
+    img{
+        border-radius: 50%;
+        height: calc(56px - 2 * #{$padding});
+    }
+}

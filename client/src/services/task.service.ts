@@ -37,7 +37,7 @@ export class TaskService {
             let url = config.api.endpoint + '/tasks/' + option.id + '/start';
             this.http.put(url, {}).toPromise()
             .then(data => {
-                resolve(_.assign(new Array<any>(), data.json()));
+                resolve(data.json());
             })
             .catch(error => reject(error));
         });

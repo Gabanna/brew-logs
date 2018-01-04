@@ -9,7 +9,7 @@
 <ion-content padding>
   <section>
     <header>
-      Todos
+      {{'step' | i18n}}
     </header>
     <ion-list *ngFor="let task of tasks">
       <button ion-item (click)="openTask(task)">{{task.name}}</button>
@@ -17,7 +17,7 @@
   </section>
   <section>
       <header>
-        Optionen
+        {{'options' | i18n}}
       </header>
       <ion-list *ngFor="let option of options">
         <button ion-item (click)="activateOption(option)">{{option.name}}</button>

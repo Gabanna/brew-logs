@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { BrewLog } from '../../model/brewLog.model';
 import { TaskService } from '../../services/task.service';
 import { ErrorService } from '../../services/error.service';
@@ -16,20 +16,37 @@ export class BrewLogDetailPage {
   private options: any[];
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public taskService: TaskService,
-    public errorService: ErrorService
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private taskService: TaskService,
+    private errorService: ErrorService,
+    private loading: LoadingController
   ) {
     this.brewLog = navParams.data;
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    let l = this.loading.create();
+    l.present();
+
     this.taskService.getActiveTasks(this.brewLog.getId())
-      .then(tasks => this.tasks = tasks)
+      .then(tasks => {
+        this.tasks = tasks;
+        if(l) {
+          l.dismiss();
+          l = null;
+        }
+      })
       .catch(this.errorService.handleHttpError);
+
     this.taskService.getOptions(this.brewLog.getId())
-      .then(options => this.options = options)
+      .then(options => {
+        this.options = options;
+        if(l) {
+          l.dismiss();
+          l = null;
+        }
+      })
       .catch(this.errorService.handleHttpError);
   }
 
@@ -39,6 +56,8 @@ export class BrewLogDetailPage {
 
   public activateOption(option: any): void {
     this.taskService.activateOption(option).then(task => {
+      this.tasks.push(task);
+      debugger;
       this.openTask(task);
     });
   }

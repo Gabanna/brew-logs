@@ -43,8 +43,7 @@ public class TaskVo {
 	TaskVo() {
 	}
 
-	public TaskVo(CaseExecution task, String businessKey, List<FormElementVo> form) {
-		this.form = form;
+	public TaskVo(CaseExecution task, String businessKey) {
 		id = task.getId();
 		name = task.getActivityName();
 		type = task.getActivityType();

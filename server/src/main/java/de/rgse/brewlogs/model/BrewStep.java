@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,8 +15,7 @@ import de.rgse.brewlogs.vo.TaskVo;
 @Entity
 public class BrewStep extends BaseEntity {
 
-	@ManyToOne
-	private BrewLog brewLog;
+	private Long brewLogId;
 
 	@JsonProperty
 	private String action;
@@ -29,18 +27,18 @@ public class BrewStep extends BaseEntity {
 	protected BrewStep() {
 	}
 
-	public BrewStep(BrewLog brewLog, TaskVo task) {
-		this.brewLog = brewLog;
+	public BrewStep(Long brewLogId, TaskVo task) {
+		this.brewLogId = brewLogId;
 		action = task.getName();
 		elements = task.getForm().stream().map(form -> new FormElement(form)).collect(Collectors.toList());
 	}
 
-	public BrewLog getBrewLog() {
-		return brewLog;
+	public Long getBrewLogId() {
+		return brewLogId;
 	}
 
-	public void setBrewLog(BrewLog brewLog) {
-		this.brewLog = brewLog;
+	public void setBrewLogId(Long brewLogId) {
+		this.brewLogId = brewLogId;
 	}
 
 	public String getAction() {

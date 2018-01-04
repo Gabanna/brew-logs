@@ -8,5 +8,5 @@ import de.rgse.brewlogs.model.BrewStep;
 
 public interface BrewStepRepository extends CrudRepository<BrewStep, Long> {
 
-	List<BrewStep> findByBrewLogOrderByCreated(Long id);
+	List<BrewStep> findByBrewLogIdOrderByCreatedAsc(Long id);
 }

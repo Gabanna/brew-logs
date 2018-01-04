@@ -9,7 +9,7 @@ export class BrewLog {
     private updated: number;
 
     constructor(){
-        moment.locale('de');
+        moment.locale(navigator.language);
     }
 
     public getId() : number {

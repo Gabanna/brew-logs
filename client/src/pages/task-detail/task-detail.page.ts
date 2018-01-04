@@ -14,11 +14,10 @@ export class TaskDetailPage {
     this.task = navParams.data;
   }
 
-  ionViewDidLoad() {
-  }
-
   public onClick(): void {
-      this.taskService.finishTask(this.task).then(() => this.navCtrl.pop());
+      this.taskService.finishTask(this.task).then(() => { 
+        this.navCtrl.pop();
+      });
   }
 
 }

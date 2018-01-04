@@ -1,3 +1,5 @@
+import { I18nPipe } from './../pipes/i18n.pipe';
+import { UserComponent } from './../components/user/user.component';
 import { BrewHistoryComponent } from './../components/brew-history/brew-history.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -25,7 +27,9 @@ import { FormFieldComponent } from '../components/form-field/form-field.componen
     TaskDetailPage,
     BrewLogComponent,
     FormFieldComponent,
-    BrewHistoryComponent
+    BrewHistoryComponent,
+    UserComponent,
+    I18nPipe
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,7 @@ import { FormFieldComponent } from '../components/form-field/form-field.componen
     BrewLogComponent,
     FormFieldComponent,
     BrewHistoryComponent,
+    UserComponent,
     AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],
