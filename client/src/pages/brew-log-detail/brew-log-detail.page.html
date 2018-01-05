@@ -7,7 +7,7 @@
 
 
 <ion-content padding>
-  <section>
+  <section *ngIf="tasks?.length > 0">
     <header>
       {{'step' | i18n}}
     </header>
@@ -15,15 +15,15 @@
       <button ion-item (click)="openTask(task)">{{task.name}}</button>
     </ion-list>
   </section>
-  <section>
+  <section *ngIf="options?.length > 0">
       <header>
         {{'options' | i18n}}
       </header>
       <ion-list *ngFor="let option of options">
         <button ion-item (click)="activateOption(option)">{{option.name}}</button>
       </ion-list>
-    </section>
-    <section>
-      <brew-history [value]="brewLog"></brew-history>
-    </section>
+  </section>
+  <section>
+    <brew-history [value]="history"></brew-history>
+  </section>
 </ion-content>

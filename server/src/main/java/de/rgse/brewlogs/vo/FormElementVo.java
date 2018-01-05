@@ -19,6 +19,9 @@ public class FormElementVo {
 	@JsonProperty
 	private String value;
 
+	@JsonProperty
+	private String key_;
+
 	public String getName() {
 		return name;
 	}
@@ -51,7 +54,26 @@ public class FormElementVo {
 		this.value = value;
 	}
 
+	public String getKey_() {
+		return key_;
+	}
+
+	public void setKey_(String key_) {
+		this.key_ = key_;
+	}
+
+	public static FormElementVo getComment() {
+		FormElementVo elementVo = new FormElementVo();
+		
+		elementVo.setKey_("comment");
+		elementVo.setName("Kommentar");
+		elementVo.setRequired(false);
+		elementVo.setType(FormElementType.String);
+		
+		return elementVo;
+	}
+	
 	public enum FormElementType {
-		String, Number, Boolean;
+		String, Number, Boolean, Time;
 	}
 }

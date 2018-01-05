@@ -1,5 +1,13 @@
-<ul >
-    <li *ngFor="let h of history">
-        {{h | json}}
-    </li>
-</ul>
+<header>
+    {{ 'history' | i18n }}
+</header>
+<main>
+    <ul>
+        <ng-container *ngFor="let entry of value">
+            <li *ngIf="entry.elements && entry.elements.length > 0">
+                <brew-history-entry [value]="entry"></brew-history-entry>
+            </li>
+        </ng-container>
+    </ul>
+    <p *ngIf="history?.length == 0">{{ 'no_history' | i18n }}</p>
+</main>

@@ -1,10 +1,12 @@
 [
 	{
+		"key_": "malt_name",
 		"name": "Malzname",
 		"type": "String",
 		"required": true
 	},
 	{
+		"key_": "quantity",
 		"name": "Menge in g",
 		"type": "Number",
 		"required": true

@@ -2,6 +2,7 @@ package de.rgse.brewlogs.vo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
@@ -38,6 +39,12 @@ public class TaskVo {
 	private String caseInstanceId;
 
 	@JsonProperty
+	private Date started;
+
+	@JsonProperty
+	private Date terminated;
+
+	@JsonProperty
 	private List<FormElementVo> form = new ArrayList<>();
 
 	TaskVo() {
@@ -58,12 +65,15 @@ public class TaskVo {
 		id = task.getId();
 		name = task.getName();
 		this.businessKey = businessKey;
+		this.started = task.getCreateTime();
 	}
 
 	public TaskVo(HistoricTaskInstance task, String businessKey) {
 		id = task.getId();
 		name = task.getName();
 		this.businessKey = businessKey;
+		this.started = task.getStartTime();
+		this.terminated = task.getEndTime();
 
 	}
 
@@ -72,7 +82,8 @@ public class TaskVo {
 		name = task.getName();
 		this.form = form;
 		this.businessKey = businessKey;
-
+		this.started = task.getStartTime();
+		this.terminated = task.getEndTime();
 	}
 
 	public TaskVo(CaseExecution task) {
@@ -93,6 +104,7 @@ public class TaskVo {
 	public TaskVo(Task task) {
 		id = task.getId();
 		name = task.getName();
+		this.started = task.getCreateTime();
 	}
 
 	public List<FormElementVo> getForm() {
@@ -120,4 +132,33 @@ public class TaskVo {
 	public String getBusinessKey() {
 		return businessKey;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public CaseState getState() {
+		return state;
+	}
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public String getCaseInstanceId() {
+		return caseInstanceId;
+	}
+
+	public Date getStarted() {
+		return started;
+	}
+
+	public Date getTerminated() {
+		return terminated;
+	}
+
 }

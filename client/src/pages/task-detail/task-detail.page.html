@@ -8,10 +8,16 @@
 
 
 <ion-content padding>
-  <form>
+  <form [formGroup]="formGroup" (ngSubmit)="onClick()">
     <ion-list *ngFor="let formField of task.form">
-      <form-field [value]="formField"></form-field>
+        <ion-item>
+            <ion-label>
+              {{formField.name}}
+            </ion-label>
+            <ion-input formControlName="{{formField.key_}}" *ngIf="formField.type != 'Boolean'" [type]="formField.type" [(ngModel)]="formField.value" [required]="formField.required" [style.invalid]="formField.invalid" required="{{formField.required}}"></ion-input>
+            <ion-checkbox formControlName="{{formField.key_}}" *ngIf="formField.type == 'Boolean'" [(ngModel)]="formField.value" [required]="formField.required" [style.invalid]="formField.invalid" required="{{formField.required}}"></ion-checkbox>
+          </ion-item>
     </ion-list>
-    <button ion-button (click)="onClick()">ok</button>
+    <button ion-button type="submit" [disabled]="!formGroup.valid">ok</button>
   </form>
 </ion-content>

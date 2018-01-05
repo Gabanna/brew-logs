@@ -9,7 +9,9 @@
 
 <ion-content padding>
 
-  <button ion-fab (click)="newBrewLog()">+</button>
+  <ion-fab bottom center>
+    <button ion-fab (click)="newBrewLog()">+</button>
+  </ion-fab>
 
   <ion-list *ngFor="let log of brewLogs">
     <button ion-item (click)="openBrewLog(log)">

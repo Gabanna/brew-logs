@@ -4,6 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrewLogPage } from '../pages/brew-log/brew-log.page';
 import { AuthService } from '../services/auth.service';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+import localeFr from '@angular/common/locales/fr';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,6 +19,9 @@ export class MyApp {
     authService.init();
 
     platform.ready().then(() => {
+
+      registerLocaleData(localeDe);
+      registerLocaleData(localeFr);
 
       authService.onAuthStateChanged(user => {
         if(!user) {

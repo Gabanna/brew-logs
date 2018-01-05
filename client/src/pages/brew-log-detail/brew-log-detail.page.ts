@@ -14,6 +14,7 @@ export class BrewLogDetailPage {
   private brewLog: BrewLog;
   private tasks: any[];
   private options: any[];
+  private history: Array<any>;
 
   constructor(
     private navCtrl: NavController,
@@ -22,12 +23,14 @@ export class BrewLogDetailPage {
     private errorService: ErrorService,
     private loading: LoadingController
   ) {
-    this.brewLog = navParams.data;
+    this.brewLog = this.navParams.data;
   }
 
   ionViewWillEnter() {
     let l = this.loading.create();
     l.present();
+
+    this.taskService.getHistory(this.brewLog.getId()).then(history => this.history = history);
 
     this.taskService.getActiveTasks(this.brewLog.getId())
       .then(tasks => {
@@ -48,6 +51,7 @@ export class BrewLogDetailPage {
         }
       })
       .catch(this.errorService.handleHttpError);
+
   }
 
   public openTask(task: any) : void {
@@ -57,7 +61,6 @@ export class BrewLogDetailPage {
   public activateOption(option: any): void {
     this.taskService.activateOption(option).then(task => {
       this.tasks.push(task);
-      debugger;
       this.openTask(task);
     });
   }

@@ -4,5 +4,11 @@
 		"name": "Temperatur erreicht um",
 		"type": "Time",
 		"required": true
+	},
+	{
+		"key_": "iodine_test",
+		"name": "Jodprobe O.K.",
+		"type": "Boolean",
+		"required": true
 	}
 ]

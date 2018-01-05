@@ -1,12 +1,10 @@
 import { I18nPipe } from './../../pipes/i18n.pipe';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { BrewLogService } from '../../services/brewlog.service';
 import { ErrorService } from '../../services/error.service';
 import { BrewLog } from '../../model/brewLog.model';
 import { BrewLogDetailPage } from '../brew-log-detail/brew-log-detail.page';
-import { AuthService } from '../../services/auth.service';
-import { LoadingCmp } from 'ionic-angular/components/loading/loading-component';
 
 @Component({
   selector: 'page-brew-log',
@@ -19,10 +17,8 @@ export class BrewLogPage {
 
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams,
     private brewLogService: BrewLogService,
     private errorService: ErrorService,
-    private authService: AuthService,
     private alertController: AlertController,
     private toastController: ToastController,
     private loading: LoadingController

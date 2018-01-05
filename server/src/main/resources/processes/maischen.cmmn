@@ -2,19 +2,19 @@
 <cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.11.3">
   <cmmn:case id="Case_Maischen" name="Maischen">
     <cmmn:casePlanModel id="CasePlanModel_Maischen" name="Maischen">
-      <cmmn:planItem id="PlanItem_0vvaa0f" definitionRef="HumanTask_0prubp7">
+      <cmmn:planItem id="HumanTask_Eiweissrast" name="Eiweißrast" definitionRef="HumanTask_0prubp7">
         <cmmn:itemControl id="PlanItemControl_02d9r6b">
           <cmmn:requiredRule id="RequiredRule_1lh53kr" />
         </cmmn:itemControl>
         <cmmn:entryCriterion id="EntryCriterion_1jq1dov" sentryRef="Sentry_0dg8g6r" />
       </cmmn:planItem>
-      <cmmn:planItem id="PlanItem_0i4q81i" definitionRef="HumanTask_0rvrh33">
+      <cmmn:planItem id="HumanTask_Maltoserast" name="Maltoserast" definitionRef="HumanTask_0rvrh33">
         <cmmn:itemControl id="PlanItemControl_02o2971">
           <cmmn:requiredRule id="RequiredRule_0umeezd" />
         </cmmn:itemControl>
         <cmmn:entryCriterion id="EntryCriterion_1kp5svp" sentryRef="Sentry_0p6a7qs" />
       </cmmn:planItem>
-      <cmmn:planItem id="PlanItem_1k3s7ul" definitionRef="HumanTask_1b425vp">
+      <cmmn:planItem id="HumanTask_Verzuckerung" name="Verzuckerung" definitionRef="HumanTask_1b425vp">
         <cmmn:itemControl id="PlanItemControl_1nyja70">
           <cmmn:requiredRule id="RequiredRule_1noorxd" />
         </cmmn:itemControl>
@@ -31,11 +31,11 @@
         </cmmn:ifPart>
       </cmmn:sentry>
       <cmmn:sentry id="Sentry_0p6a7qs">
-        <cmmn:planItemOnPart id="PlanItemOnPart_1xef3na" sourceRef="PlanItem_0vvaa0f">        <cmmn:standardEvent>complete</cmmn:standardEvent>
+        <cmmn:planItemOnPart id="PlanItemOnPart_1xef3na" sourceRef="HumanTask_Eiweissrast">        <cmmn:standardEvent>complete</cmmn:standardEvent>
 </cmmn:planItemOnPart>
       </cmmn:sentry>
       <cmmn:sentry id="Sentry_18nezxz">
-        <cmmn:planItemOnPart id="PlanItemOnPart_0iwmo6a" sourceRef="PlanItem_0i4q81i">        <cmmn:standardEvent>complete</cmmn:standardEvent>
+        <cmmn:planItemOnPart id="PlanItemOnPart_0iwmo6a" sourceRef="HumanTask_Maltoserast">        <cmmn:standardEvent>complete</cmmn:standardEvent>
 </cmmn:planItemOnPart>
       </cmmn:sentry>
       <cmmn:sentry id="Sentry_1yt7tjz">
@@ -44,18 +44,18 @@
         </cmmn:ifPart>
       </cmmn:sentry>
       <cmmn:humanTask id="HumanTask_0prubp7" name="Eiweißrast" />
-      <cmmn:humanTask id="HumanTask_0rvrh33" name="Maltoserast" />
-      <cmmn:humanTask id="HumanTask_1b425vp" name="Verzuckerung" />
+      <cmmn:humanTask id="HumanTask_0rvrh33" name="Maltoserast" camunda:formKey="/forms/maltoserast.json" />
+      <cmmn:humanTask id="HumanTask_1b425vp" name="Verzuckerung" camunda:formKey="/forms/verzuckerung.json" />
       <cmmn:stage id="Stage_1rjw9dh" name="Einmaischen">
         <cmmn:extensionElements>
           <camunda:caseExecutionListener event="start" expression="${caseExecution.setVariable(&#34;einmaischen_done&#34;, false)}" />
         </cmmn:extensionElements>
-        <cmmn:planItem id="PlanItem_1" name="Einmaischen2" definitionRef="HumanTask_1vtwcvb">
+        <cmmn:planItem id="HumanTask_Einmaischen" name="Einmaischen" definitionRef="HumanTask_1vtwcvb">
           <cmmn:itemControl id="PlanItemControl_0ax4s46">
             <cmmn:requiredRule id="RequiredRule_01lu4qn" />
           </cmmn:itemControl>
         </cmmn:planItem>
-        <cmmn:planItem id="PlanItem_05l89ls" definitionRef="HumanTask_1yg2k6c" />
+        <cmmn:planItem id="HumanTask_Malz_hinzufuegen" name="Malz hinzufügen" definitionRef="HumanTask_1yg2k6c" />
         <cmmn:humanTask id="HumanTask_1yg2k6c" name="Malz hinzufügen" camunda:formKey="/forms/malz_hinzufuegen.json">
           <cmmn:defaultControl id="PlanItemControl_1h0ugoi">
             <cmmn:repetitionRule id="RepetitionRule_0p8hjz0">
@@ -81,7 +81,7 @@
         <dc:Bounds x="144" y="78" width="1135" height="446" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
-      <cmmndi:CMMNShape id="PlanItem_0q0t4f2_di" cmmnElementRef="PlanItem_0vvaa0f">
+      <cmmndi:CMMNShape id="PlanItem_0q0t4f2_di" cmmnElementRef="HumanTask_Eiweissrast">
         <dc:Bounds x="626" y="184" width="100" height="80" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
@@ -111,11 +111,11 @@
           <dc:Bounds x="1000" y="193" width="50" height="12" />
         </cmmndi:CMMNLabel>
       </cmmndi:CMMNEdge>
-      <cmmndi:CMMNShape id="PlanItem_0dgsd0c_di" cmmnElementRef="PlanItem_0i4q81i">
+      <cmmndi:CMMNShape id="PlanItem_0dgsd0c_di" cmmnElementRef="HumanTask_Maltoserast">
         <dc:Bounds x="871" y="184" width="100" height="80" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
-      <cmmndi:CMMNShape id="PlanItem_1r1ig5v_di" cmmnElementRef="PlanItem_1k3s7ul">
+      <cmmndi:CMMNShape id="PlanItem_1r1ig5v_di" cmmnElementRef="HumanTask_Verzuckerung">
         <dc:Bounds x="1082" y="184" width="100" height="80" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
@@ -123,11 +123,11 @@
         <dc:Bounds x="181" y="118" width="353" height="361" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
-      <cmmndi:CMMNShape id="PlanItem_13i8p9e_di" cmmnElementRef="PlanItem_1">
+      <cmmndi:CMMNShape id="PlanItem_13i8p9e_di" cmmnElementRef="HumanTask_Einmaischen">
         <dc:Bounds x="208" y="190" width="100" height="80" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
-      <cmmndi:CMMNShape id="PlanItem_0cpert9_di" cmmnElementRef="PlanItem_05l89ls">
+      <cmmndi:CMMNShape id="PlanItem_0cpert9_di" cmmnElementRef="HumanTask_Malz_hinzufuegen">
         <dc:Bounds x="208" y="326" width="100" height="80" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>

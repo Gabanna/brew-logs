@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import firebaseConfig, {googleProvider} from '../config/firebase';
 import { Observer } from 'rxjs/Observer';
-import { MethodCall } from '@angular/compiler';
 
 @Injectable()
 export class AuthService {

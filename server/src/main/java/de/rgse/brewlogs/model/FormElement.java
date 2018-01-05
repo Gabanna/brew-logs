@@ -14,6 +14,7 @@ public class FormElement extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private FormElementType type;
 	private String value;
+	private String key_;
 
 	protected FormElement() {
 	}
@@ -22,6 +23,7 @@ public class FormElement extends BaseEntity {
 		name = vo.getName();
 		type = vo.getType();
 		value = vo.getValue();
+		key_ = vo.getKey_();
 	}
 
 	public String getName() {
@@ -46,6 +48,14 @@ public class FormElement extends BaseEntity {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public String getKey_() {
+		return key_;
+	}
+
+	public void setKey_(String key_) {
+		this.key_ = key_;
 	}
 
 }

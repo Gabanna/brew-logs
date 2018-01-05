@@ -1,23 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BrewLog } from '../../model/brewLog.model';
-import { TaskService } from '../../services/task.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'brew-history',
   templateUrl: 'brew-history.component.html'
 })
-export class BrewHistoryComponent implements OnInit {
+export class BrewHistoryComponent  {
 
   @Input()
-  public value: BrewLog;
+  public value: Array<any>;
 
-    public history: Array<any>;
-
-  constructor(
-      private taskService: TaskService
-  ) {}
-
-  ngOnInit(): void {
-    this.taskService.getHistory(this.value.getId()).then(history => this.history = history);
-  }
 }

@@ -12,12 +12,13 @@ import { ErrorService } from '../services/error.service';
 import { TaskService } from '../services/task.service';
 import { AuthService } from '../services/auth.service';
 
+import { LOCALE_ID } from '@angular/core';
 import { MyApp } from './app.component';
 import { BrewLogPage } from '../pages/brew-log/brew-log.page';
 import { BrewLogComponent } from '../components/brew-log/brew-log.component';
 import { BrewLogDetailPage } from '../pages/brew-log-detail/brew-log-detail.page';
 import { TaskDetailPage } from '../pages/task-detail/task-detail.page';
-import { FormFieldComponent } from '../components/form-field/form-field.component';
+import { BrewHistoryEntryComponent } from '../components/brew-history-entry/brew-history-entry.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,8 @@ import { FormFieldComponent } from '../components/form-field/form-field.componen
     BrewLogDetailPage,
     TaskDetailPage,
     BrewLogComponent,
-    FormFieldComponent,
     BrewHistoryComponent,
+    BrewHistoryEntryComponent,
     UserComponent,
     I18nPipe
   ],
@@ -50,11 +51,12 @@ import { FormFieldComponent } from '../components/form-field/form-field.componen
     TaskService,
     SplashScreen,
     BrewLogComponent,
-    FormFieldComponent,
     BrewHistoryComponent,
+    BrewHistoryEntryComponent,
     UserComponent,
     AuthService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: LOCALE_ID, useValue: navigator.language }
   ],
 
 })
