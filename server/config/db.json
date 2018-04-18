@@ -1,0 +1,8 @@
+{
+    "host": "ds249839.mlab.com",
+    "port": 49839,
+    "dbname": "brew-logs",
+    "dbuser": "brew-logs-server",
+    "dbpassword": "brew-logs-server",
+    "objectId": "users"
+}

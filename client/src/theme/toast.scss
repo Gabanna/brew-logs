@@ -1,0 +1,73 @@
+ion-toast {
+    &.toast-md{
+        .toast-wrapper {
+            background-color: white;
+            .toast-message {
+                text-align: center;
+                font-weight: bold;
+            }
+            &.toast-bottom {
+                border-top-right-radius: 5px;
+                border-top-left-radius: 5px;
+            }
+            &.toast-top {
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+        }
+        &.error {
+            .toast-wrapper {
+                $errorColor: map-get($colors, strawberry);
+                &.toast-bottom {
+                    border-top: 1px solid $errorColor;
+                    border-left: 1px solid $errorColor;
+                    border-right: 1px solid $errorColor;
+                }
+                &.toast-top {
+                    border-bottom: 1px solid $errorColor;
+                    border-left: 1px solid $errorColor;
+                    border-right: 1px solid $errorColor;
+                }
+                .toast-message {
+                    color: $errorColor;
+                }
+            }
+        }
+        &.info {
+            .toast-wrapper {
+                $infoColor: map-get($colors, primary);
+                &.toast-bottom {
+                    border-top: 1px solid $infoColor;
+                    border-left: 1px solid $infoColor;
+                    border-right: 1px solid $infoColor;
+                }
+                &.toast-top {
+                    border-bottom: 1px solid $infoColor;
+                    border-left: 1px solid $infoColor;
+                    border-right: 1px solid $infoColor;
+                }
+                .toast-message {
+                    color: $infoColor;
+                }
+            }
+        }
+        &.success {
+            .toast-wrapper {
+                $successColor: map-get($colors, secondary);
+                &.toast-bottom {
+                    border-top: 1px solid $successColor;
+                    border-left: 1px solid $successColor;
+                    border-right: 1px solid $successColor;
+                }
+                &.toast-top {
+                    border-bottom: 1px solid $successColor;
+                    border-left: 1px solid $successColor;
+                    border-right: 1px solid $successColor;
+                }
+                .toast-message {
+                    color: $successColor;
+                }
+            }
+        }
+    }
+}

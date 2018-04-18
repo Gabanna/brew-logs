@@ -10,6 +10,17 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 
+import * as Raven from 'raven-js';
+import { ToastProvider } from '../providers/toastProvider';
+
+Raven.config('https://50403c15b8ea4b7783eb7ea845741f2c@sentry.io/1191379').install();
+
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err:any) : void {
+    Raven.captureException(err.originalError || err);
+  }
+}
+
 @NgModule({
   declarations: [
     MyApp,
@@ -29,8 +40,10 @@ import { AuthProvider } from '../providers/auth/auth';
   providers: [
     StatusBar,
     SplashScreen,
+    {provide: ErrorHandler, useClass: RavenErrorHandler},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    ToastProvider
   ]
 })
 export class AppModule {}

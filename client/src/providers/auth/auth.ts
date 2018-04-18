@@ -28,8 +28,12 @@ export class AuthProvider {
     });
   }
 
-  public login(email, password) {
-    this.oothClient.authenticate('local', 'login', {
+  public logout(): void {
+    this.oothClient.logout();
+  }
+
+  public login(email, password): Promise<any> {
+    return this.oothClient.authenticate('local', 'login', {
       username: email,
       password: password
     });

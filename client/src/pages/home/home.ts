@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { RavenErrorHandler } from '../../app/app.module';
+import { ToastProvider } from '../../providers/toastProvider';
 
 @Component({
   selector: 'page-home',
@@ -10,11 +12,12 @@ export class HomePage {
 
   private user: any;
 
-  constructor(public navCtrl: NavController, private authProvider: AuthProvider) {
-    //authProvider.login('test@gmail.com', '12qwER');
-    authProvider.login('tester@gmail.com', '12qwER');
-    this.authProvider.getCurrentUser().then((user) => {
-      this.user = user;
-    });
+  constructor(public navCtrl: NavController, private authProvider: AuthProvider, private toastProvider: ToastProvider) {
+    authProvider.logout();
+    authProvider.login('tester@gmail.com', '12qwER').then(user => this.user = user).catch(error => this.showError(error));
+  }
+
+  private showError(error) {
+    this.toastProvider.toast(error).cssClass('error').show();
   }
 }
