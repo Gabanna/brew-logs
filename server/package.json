@@ -1,0 +1,25 @@
+{
+  "name": "brew-logs-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "global-tunnel": "^1.2.0",
+    "mongo-mock": "^3.1.0",
+    "mongodb": "^3.0.7",
+    "nodemailer": "^4.6.4",
+    "ooth": "^1.4.2",
+    "ooth-local": "^1.4.2",
+    "ooth-local-emailer": "^1.4.1",
+    "ooth-mongo": "^1.2.1",
+    "uuid": "^3.2.1"
+  }
+}
