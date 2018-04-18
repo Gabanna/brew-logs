@@ -1,8 +1,0 @@
-[
-	{
-		"key_": "temperatur_reached_at",
-		"name": "Temperatur erreicht um",
-		"type": "Time",
-		"required": true
-	}
-]
