@@ -1,14 +1,16 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{user}}
+      <avatar [email]="user?.email" (logout)="logout()"></avatar>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <ion-list-header>{{user?.email}} {{'brew-logs' | i18n}}</ion-list-header>
+    <ion-item *ngFor="let log of brewLogs">
+      <brew-log [value]="log"></brew-log>
+    </ion-item>
+  </ion-list>
 </ion-content>

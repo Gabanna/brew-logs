@@ -1,41 +1,50 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import * as OothClient from "ooth-client";
+import md5 from 'md5';
 
 @Injectable()
 export class AuthProvider {
-  private oothClient = new OothClient({
-    oothUrl: "http://localhost:3000/auth",
-    standalone: false
-  });
+
+  private readonly url = "http://localhost:3000/auth";
+  private usercache: any = null;
 
   constructor(public http: HttpClient) {
-    this.oothClient.start();
   }
 
-  public getCurrentUser(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const subscription = this.oothClient.user().subscribe(user => {
-        resolve(user);
-      });
-    });
+  public getCurrentUser(): any {
+    return this.usercache || this.readUser();
   }
 
-  public register(email, password) {
-    this.oothClient.authenticate('local', 'register', {
+  private readUser() {
+    let user = localStorage.getItem('bl.user');
+    if(user) {
+      user = JSON.parse(user);
+    }
+    return user;
+  }
+
+  public register(email, password): Promise<any> {
+    return this.http.post(this.url + '/register', {
       email: email,
       password: password
-    });
+    }).toPromise();
   }
 
   public logout(): void {
-    this.oothClient.logout();
+    localStorage.removeItem('bl.user');
+    this.usercache = null;
   }
 
   public login(email, password): Promise<any> {
-    return this.oothClient.authenticate('local', 'login', {
-      username: email,
-      password: password
+    return new Promise((resolve, reject) => {
+      this.http.post(this.url + '/login', {
+        email: email,
+        password: md5(password)
+      }).toPromise().then(user => {
+        localStorage.setItem('bl.user', JSON.stringify(user));
+        this.usercache = user;
+        resolve(user);
+      }).catch(reject);
     });
   }
 }

@@ -18,7 +18,8 @@ class ToastBuilder {
     this.toastCtrl = toastCtrl;
     this.toastOpts = {
       message: message,
-      position: 'top'
+      position: 'top',
+      closeButtonText: 'X'
     };
   }
 

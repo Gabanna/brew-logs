@@ -1,5 +1,12 @@
 {
   "from": "info@example.com",
   "siteName": "Ooth local config",
-  "url": "http://localhost:3000"
+  "url": "http://localhost:3000",
+  "transport": {
+    "service": "gmail",
+      "auth": {
+        "user": "ronny.gallus@gmail.com",
+        "pass": "Ihm13jss"
+      }
+  }
 }

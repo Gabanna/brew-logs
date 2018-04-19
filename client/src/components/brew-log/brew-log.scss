@@ -1,0 +1,13 @@
+brew-log {
+  .brew-log-name {
+    color: map-get($colors, primary);
+  }
+  .brew-log-author {
+    color: map-get($colors, secondary);
+    font-size: .8em;
+  }
+  .brew-log-created {
+    display: block;
+    color: silver;
+  }
+}

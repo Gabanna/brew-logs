@@ -1,23 +1,53 @@
-import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth/auth';
-import { RavenErrorHandler } from '../../app/app.module';
-import { ToastProvider } from '../../providers/toastProvider';
+import { Component, ViewChild } from "@angular/core";
+import {
+  NavController,
+  ToastController,
+  IonicPage,
+  Content
+} from "ionic-angular";
+import { AuthProvider } from "../../providers/auth/auth";
+import { RavenErrorHandler } from "../../app/app.module";
+import { ToastProvider } from "../../providers/toastProvider";
+import { BrewLogProvider } from "../../providers/brew-log-provider";
 
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage {
+  @ViewChild(Content) content: Content;
 
   private user: any;
+  private brewLogs: Array<any> = [];
 
-  constructor(public navCtrl: NavController, private authProvider: AuthProvider, private toastProvider: ToastProvider) {
-    authProvider.logout();
-    authProvider.login('tester@gmail.com', '12qwER').then(user => this.user = user).catch(error => this.showError(error));
+  constructor(
+    public navCtrl: NavController,
+    private authProvider: AuthProvider,
+    private toastProvider: ToastProvider,
+    private brewLogProvider: BrewLogProvider
+  ) {
+    this.setUser();
+    brewLogProvider
+      .findBrewLogsByUser(this.user.email)
+      .then(brewLogs => (this.brewLogs = brewLogs))
+      .catch(error => {
+        this.toastProvider.toast('Es ist ein Fehler aufgetreten: ' + error).cssClass('error').show();
+        console.error(error);
+      });
   }
 
-  private showError(error) {
-    this.toastProvider.toast(error).cssClass('error').show();
+  private logout(): void {
+    this.authProvider.logout();
+    this.setUser();
+  }
+
+  private setUser() {
+    this.user = this.authProvider.getCurrentUser();
+    if (!this.user) {
+      this.navCtrl.setRoot("LoginPage", {
+        from: HomePage
+      });
+    }
   }
 }
