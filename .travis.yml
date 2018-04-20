@@ -7,16 +7,13 @@ sudo: required
 services:
 - docker
 script:
-- mkdir -p /opt/docker/images
 - npm install -g ionic cordova
 - cd client
 - npm install
 - ionic build
 - docker build . -t rgse/brew-logs-web-client
-- docker save -o /opt/docker/images/brew-logs-web-client.tar brew-logs-web-client
 - cd ../server
 - docker build . -t rgse/brew-logs-server
-- docker save -o /opt/docker/images/brew-logs-server.tar brew-logs-server
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_bc7329f17379_key -iv $encrypted_bc7329f17379_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 - eval "$(ssh-agent -s)"
@@ -26,6 +23,9 @@ deploy:
  provider: script
  skip_cleanup: true
  script:
+  - mkdir -p /opt/docker/images
+  - docker save -o /opt/docker/images/brew-logs-web-client.tar rgse/brew-logs-web-client
+  - docker save -o /opt/docker/images/brew-logs-server.tar rgse/brew-logs-server
   - scp /opt/docker/images/brew-logs-web-client.tar root@5.45.97.155:/opt/docker/images/brew-logs-web-client.tar
   - scp /opt/docker/images/brew-logs-server.tar root@5.45.97.155:/opt/docker/images/brew-logs-server.tar
   - ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-web-client.tar
