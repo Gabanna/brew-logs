@@ -31,7 +31,7 @@ function login(email, password) {
           if (err) {
             reject(err);
           } else {
-            if (doc.password == password) {
+            if (doc && doc.password == password) {
               resolve({
                 email: doc.email
               });

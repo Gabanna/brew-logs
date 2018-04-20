@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
+      <logo [res]="32"></logo>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,16 +10,16 @@
 
   <form (ngSubmit)="doLogin()">
     <ion-item>
-      <ion-label>Email</ion-label>
-      <ion-input type="email" [(ngModel)]="login.username" name="email" [required]="true"></ion-input>
+      <ion-label floating>{{'userOrEmail' | i18n}}</ion-label>
+      <ion-input [(ngModel)]="login.username" name="username-email" [required]="true"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Password</ion-label>
+      <ion-label floating>Password</ion-label>
       <ion-input type="password" [(ngModel)]="login.password" name="password" [required]="true"></ion-input>
     </ion-item>
 
-    <button type="submit" ion-button [disabled]="!login.username || !login.password">{{'login' | i18n}}</button>
-    <button ion-button outline (click)="doRegister()" [disabled]="!login.username || !login.password">{{'register' | i18n}}</button>
+    <button type="submit" ion-button full [disabled]="!login.username || !login.password">{{'login' | i18n}}</button>
   </form>
+  <button ion-button clear full (click)="doRegister()" [disabled]="!login.username || !login.password">{{'register' | i18n}}</button>
 
 </ion-content>

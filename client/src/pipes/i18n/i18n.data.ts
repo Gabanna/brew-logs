@@ -5,7 +5,8 @@ const data = {
     welcome: 'Herzlich Willkommen',
     brewLog: 'Brauprotokoll',
     brewLogs: 'Brauprotokolle',
-    logout: 'Abmelden'
+    logout: 'Abmelden',
+    userOrEmail: 'Benutzer / Email'
   },
   en: {
     login: 'login',
@@ -13,7 +14,8 @@ const data = {
     welcome: 'welcome',
     brewLog: 'brew log',
     brewLogs: 'brew logs',
-    logout: 'logout'
+    logout: 'logout',
+    userOrEmail: 'User / Email'
   }
 }
 
