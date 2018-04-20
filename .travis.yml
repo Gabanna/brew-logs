@@ -1,14 +1,31 @@
 language: node_js
 node_js:
- - "node"
+- node
+addons:
+  ssh_known_hosts: 5.45.97.155
 sudo: required
 services:
-  - docker
+- docker
 script:
- - npm install -g ionic cordova
- - cd client
- - npm install
- - ionic build
- - docker build . -t rgse/brew-logs-web-client
- - cd ../server
- - docker build . -t rgse/brew-logs-server
+- npm install -g ionic cordova
+- cd client
+- npm install
+- ionic build
+- docker build . -t rgse/brew-logs-web-client
+- docker save -o /opt/docker/images/brew-logs-web-client.tar brew-logs-web-client
+- cd ../server
+- docker build . -t rgse/brew-logs-server
+- docker save -o /opt/docker/images/brew-logs-server.tar brew-logs-server
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_bc7329f17379_key -iv $encrypted_bc7329f17379_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/deploy_rsa
+- ssh-add /tmp/deploy_rsa
+deploy:
+ provider: script
+ skip_cleanup: true
+ script:
+  - scp /opt/docker/images/brew-logs-web-client.tar root@5.45.97.155:/opt/docker/images/brew-logs-web-client.tar
+  - scp /opt/docker/images/brew-logs-server.tar root@5.45.97.155:/opt/docker/images/brew-logs-server.tar
+  - ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-web-client.tar
+  - ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-server.tar
