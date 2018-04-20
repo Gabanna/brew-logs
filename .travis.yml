@@ -10,7 +10,7 @@ script:
 - npm install -g ionic cordova
 - cd client
 - npm install
-- ionic build
+- ionic build browser
 - docker build . -t rgse/brew-logs-web-client
 - cd ../server
 - docker build . -t rgse/brew-logs-server
