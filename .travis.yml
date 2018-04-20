@@ -9,5 +9,6 @@ script:
  - cd client
  - npm install
  - ionic build
+ - docker build . -t rgse/brew-logs-web-client
  - cd ../server
- - docker build . -t rgse/brew-logs
+ - docker build . -t rgse/brew-logs-server
