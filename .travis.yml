@@ -10,4 +10,4 @@ script:
  - npm install
  - ionic build
  - cd ../server
- - docker build
+ - docker build . -t rgse/brew-logs
