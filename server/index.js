@@ -9,6 +9,7 @@ authModule.init(app);
 brewLogsModule.init(app);
 
 const port = process.env.port | 3000;
-app.listen(port, () => {
+const host = '0.0.0.0'
+app.listen(port, host, () => {
   console.log('running in port ' + port);
 });

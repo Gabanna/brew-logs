@@ -8,9 +8,9 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-list-header>{{user?.email}} {{'brew-logs' | i18n}}</ion-list-header>
-    <ion-item *ngFor="let log of brewLogs">
+    <ion-list-header>{{user?.email}}'s {{'brewLogs' | i18n}}</ion-list-header>
+    <button ion-item  *ngFor="let log of brewLogs" (click)="open(log)">
       <brew-log [value]="log"></brew-log>
-    </ion-item>
+    </button>
   </ion-list>
 </ion-content>

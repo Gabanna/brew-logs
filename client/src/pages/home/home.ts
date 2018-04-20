@@ -1,7 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import {
   NavController,
-  ToastController,
   IonicPage,
   Content
 } from "ionic-angular";
@@ -28,7 +27,7 @@ export class HomePage {
     private brewLogProvider: BrewLogProvider
   ) {
     this.setUser();
-    brewLogProvider
+    this.brewLogProvider
       .findBrewLogsByUser(this.user.email)
       .then(brewLogs => (this.brewLogs = brewLogs))
       .catch(error => {
@@ -37,7 +36,11 @@ export class HomePage {
       });
   }
 
-  private logout(): void {
+  open(brewLog): void {
+    this.navCtrl.push('BrewLogPage', {brewLog: brewLog});
+  }
+
+  logout(): void {
     this.authProvider.logout();
     this.setUser();
   }

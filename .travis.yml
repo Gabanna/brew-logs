@@ -9,3 +9,5 @@ script:
  - cd client
  - npm install
  - ionic build
+ - cd ../server
+ - docker build

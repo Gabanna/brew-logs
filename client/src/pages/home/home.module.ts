@@ -3,7 +3,6 @@ import { HomePage } from "./home";
 import { IonicPageModule } from "ionic-angular";
 import { ComponentsModule } from '../../components/components.module';
 import { AvatarMenuComponent } from '../../components/avatar-menu/avatar-menu';
-import { I18nPipe } from '../../pipes/i18n/i18n';
 import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({

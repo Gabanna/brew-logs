@@ -10,7 +10,7 @@ export class AvatarMenuComponent {
 
   constructor(
     private viewCtrl: ViewController,
-    private navParams: NavParams,
+    navParams: NavParams,
   ) {
     this.email = navParams.get('email');
   }

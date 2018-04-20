@@ -7,16 +7,18 @@
 
 <ion-content padding>
 
-  <ion-item>
-    <ion-label>Email</ion-label>
-    <ion-input type="email" [(ngModel)]="login.username"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="login.password"></ion-input>
-  </ion-item>
+  <form (ngSubmit)="doLogin()">
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="login.username" name="email" [required]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="login.password" name="password" [required]="true"></ion-input>
+    </ion-item>
 
-  <button ion-button (click)="doLogin()" [disabled]="!login.username || !login.password">Login</button>
-  <button ion-button (click)="doRegister()" [disabled]="!login.username || !login.password">Register</button>
+    <button type="submit" ion-button [disabled]="!login.username || !login.password">{{'login' | i18n}}</button>
+    <button ion-button outline (click)="doRegister()" [disabled]="!login.username || !login.password">{{'register' | i18n}}</button>
+  </form>
 
 </ion-content>

@@ -5,23 +5,21 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http'
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 
 import * as Raven from 'raven-js';
 import { ToastProvider } from '../providers/toastProvider';
-import { LoginPage } from '../pages/login/login';
 import { HomePageModule } from '../pages/home/home.module';
 import { LoginPageModule } from '../pages/login/login.module';
-import { ComponentsModule } from '../components/components.module';
 import { BrewLogProvider } from '../providers/brew-log-provider';
 
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeFr from '@angular/common/locales/fr';
+import { BrewLogPageModule } from '../pages/brew-log/brew-log.module';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeFr, 'fr');
@@ -39,6 +37,7 @@ export class RavenErrorHandler implements ErrorHandler {
     MyApp
   ],
   imports: [
+    BrewLogPageModule,
     HomePageModule,
     BrowserModule,
     LoginPageModule,

@@ -30,7 +30,9 @@ export class AvatarComponent {
     var popover = this.popoverCtrl.create(AvatarMenuComponent, {email: this.emailValue});
 
     popover.onDidDismiss((data, role) => {
-      this.logout.emit(data);
+      if(data) {
+        this.logout.emit(data);
+      }
     });
 
     popover.present({

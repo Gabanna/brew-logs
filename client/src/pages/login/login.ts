@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {
   NavController,
-  ToastController,
   IonicPage,
   NavParams
 } from 'ionic-angular';
@@ -18,7 +17,6 @@ import { I18nPipe } from '../../pipes/i18n/i18n';
 export class LoginPage {
 
   private login: { username?: string; password?: string } = {};
-  private user: any;
   private i18n: I18nPipe;
 
   constructor(
@@ -27,7 +25,6 @@ export class LoginPage {
     private authProvider: AuthProvider,
     private toastProvider: ToastProvider,
   ) {
-    this.user = authProvider.getCurrentUser();
     this.i18n = new I18nPipe();
   }
 
