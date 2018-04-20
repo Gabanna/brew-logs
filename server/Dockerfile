@@ -5,7 +5,7 @@ COPY package*.json ./
 RUN npm install
 COPY ./config ./config
 COPY ./src ./src
-COPY ./index.json ./index.json
+COPY ./index.js ./index.js
 RUN mkdir ./data
 EXPOSE 3000
 CMD ["npm", "start"]
