@@ -7,7 +7,7 @@ sudo: required
 services:
 - docker
 script:
-- mkdir /opt/docker/images
+- mkdir -p /opt/docker/images
 - npm install -g ionic cordova
 - cd client
 - npm install
