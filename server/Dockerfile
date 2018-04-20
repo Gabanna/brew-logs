@@ -3,6 +3,9 @@ WORKDIR /usr/src/app
 ENV port 3000
 COPY package*.json ./
 RUN npm install
-COPY . .
+COPY ./config ./config
+COPY ./src ./src
+COPY index.json
+RUN mkdir ./data
 EXPOSE 3000
 CMD ["npm", "start"]
