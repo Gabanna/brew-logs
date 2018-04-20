@@ -30,3 +30,5 @@ deploy:
   - scp /opt/docker/images/brew-logs-server.tar root@5.45.97.155:/opt/docker/images/brew-logs-server.tar
   - ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-web-client.tar
   - ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-server.tar
+ on:
+  branch: develop
