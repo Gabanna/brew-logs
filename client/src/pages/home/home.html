@@ -1,15 +1,20 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <avatar [email]="user?.email" (logout)="logout()"></avatar>
+      <avatar [user]="user" (logout)="logout()"></avatar>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-fab top right>
+    <button ion-fab (click)="newLog()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
   <ion-list>
-    <ion-list-header>{{user?.email}}'s {{'brewLogs' | i18n}}</ion-list-header>
-    <button ion-item  *ngFor="let log of brewLogs" (click)="open(log)">
+    <ion-list-header>{{user?.username}}'s {{'brewLogs' | i18n}}</ion-list-header>
+    <button ion-item *ngFor="let log of brewLogs" (click)="open(log)">
       <brew-log [value]="log"></brew-log>
     </button>
   </ion-list>

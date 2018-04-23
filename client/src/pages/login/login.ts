@@ -2,12 +2,15 @@ import { Component } from '@angular/core';
 import {
   NavController,
   IonicPage,
-  NavParams
+  NavParams,
+  ModalController
 } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { RavenErrorHandler } from '../../app/app.module';
 import { ToastProvider } from '../../providers/toastProvider';
 import { I18nPipe } from '../../pipes/i18n/i18n';
+import { RegisterComponent } from '../../components/register/register';
+import md5 from 'md5';
 
 @IonicPage()
 @Component({
@@ -20,23 +23,24 @@ export class LoginPage {
   private i18n: I18nPipe;
 
   constructor(
-    public navCtrl: NavController,
+    private navCtrl: NavController,
     private navParams: NavParams,
     private authProvider: AuthProvider,
     private toastProvider: ToastProvider,
+    private modalContoller: ModalController
   ) {
     this.i18n = new I18nPipe();
   }
 
   public doLogin() {
     this.authProvider
-      .login(this.login.username, this.login.password)
+      .login(this.login.username, md5(this.login.password))
       .then(data => {
         
         let target = this.navParams.get('from');
         this.navCtrl.setRoot(target ? target : 'HomePage');
         this.toastProvider
-          .toast(this.i18n.transform('welcome') + ' ' + data.email)
+          .toast(this.i18n.transform('welcome') + ' ' + data.username)
           .cssClass('success')
           .duration(5000)
           .show();
@@ -47,22 +51,19 @@ export class LoginPage {
           .cssClass('error')
           .showCloseButton(true)
           .show();
+        console.error(error)
       });
   }
 
   public doRegister() {
-    this.authProvider
-      .register(this.login.username, this.login.password)
-      .then(data => {
-        console.info(JSON.stringify(data));
+    let registerModal = this.modalContoller.create(RegisterComponent, this.login);
+    registerModal.onWillDismiss(data => {
+      if(data) {
+        this.login = data.user;
+        this.login.password = data.password;
         this.doLogin();
-      })
-      .catch(error => {
-        this.toastProvider
-          .toast(error)
-          .cssClass('error')
-          .showCloseButton(true)
-          .show();
-      });
+      }
+    });
+    registerModal.present();
   }
 }

@@ -6,7 +6,9 @@ const data = {
     brewLog: 'Brauprotokoll',
     brewLogs: 'Brauprotokolle',
     logout: 'Abmelden',
-    userOrEmail: 'Benutzer / Email'
+    username: 'Benutzername',
+    email: 'E-Mail',
+    password: 'Kennwort'
   },
   en: {
     login: 'login',

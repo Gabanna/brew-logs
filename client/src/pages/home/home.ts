@@ -2,12 +2,14 @@ import { Component, ViewChild } from "@angular/core";
 import {
   NavController,
   IonicPage,
-  Content
+  Content,
+  ModalController
 } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth/auth";
 import { RavenErrorHandler } from "../../app/app.module";
 import { ToastProvider } from "../../providers/toastProvider";
 import { BrewLogProvider } from "../../providers/brew-log-provider";
+import { RegisterComponent } from '../../components/register/register';
 
 @IonicPage()
 @Component({
@@ -23,6 +25,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     private authProvider: AuthProvider,
+    private modalController: ModalController,
     private toastProvider: ToastProvider,
     private brewLogProvider: BrewLogProvider
   ) {
@@ -43,6 +46,10 @@ export class HomePage {
   logout(): void {
     this.authProvider.logout();
     this.setUser();
+  }
+
+  newLog(): void {
+    this.modalController.create(RegisterComponent, this.user);
   }
 
   private setUser() {

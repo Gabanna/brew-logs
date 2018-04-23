@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <span class="pageCtl">
+        <ion-icon name="close" (click)="viewCtl.dismiss()"></ion-icon>
+      </span>
+      {{ 'register' | i18n }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="doRegister()">
+    <ion-item>
+      <ion-label floating>{{'username' | i18n}}</ion-label>
+      <ion-input required="true" [(ngModel)]="register.username" name="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'email' | i18n}}</ion-label>
+      <ion-input required="true" [(ngModel)]="register.email" name="email" type="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'password' | i18n}}</ion-label>
+      <ion-input required="true" [(ngModel)]="register.password" name="password" type="password"></ion-input>
+    </ion-item>
+    <button ion-button full type="submit">{{ 'register' | i18n }}</button>
+  </form>
+</ion-content>

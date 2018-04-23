@@ -1,0 +1,10 @@
+register {
+    .pageCtl {
+        color: map-get($colors, primary);
+        margin-right: 10px;
+        &:hover {
+            opacity: .8;
+            cursor: pointer;
+        }
+    }
+}

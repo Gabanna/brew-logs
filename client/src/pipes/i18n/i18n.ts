@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import data from './i18n.data';
+import data from '../../assets/i18n';
 
 @Pipe({
   name: 'i18n',

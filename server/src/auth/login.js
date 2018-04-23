@@ -27,13 +27,14 @@ function login(email, password) {
       .createConnection()
       .then(connection => {
         let users = connection.collection('users');
-        let user = users.findOne({ email: email }, (err, doc) => {
+        let user = users.findOne({ $or: [{email: email}, {username: email}] }, (err, doc) => {
           if (err) {
             reject(err);
           } else {
             if (doc && doc.password == password) {
               resolve({
-                email: doc.email
+                email: doc.email,
+                username: doc.username
               });
             } else {
               reject({ reason: 'unauthorized' });

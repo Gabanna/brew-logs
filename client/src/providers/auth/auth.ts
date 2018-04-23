@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import md5 from 'md5';
 
 @Injectable()
 export class AuthProvider {
@@ -23,8 +22,9 @@ export class AuthProvider {
     return user;
   }
 
-  public register(email, password): Promise<any> {
+  public register(username, email, password): Promise<any> {
     return this.http.post(this.url + '/register', {
+      username: username,
       email: email,
       password: password
     }).toPromise();
@@ -39,7 +39,7 @@ export class AuthProvider {
     return new Promise((resolve, reject) => {
       this.http.post(this.url + '/login', {
         email: email,
-        password: md5(password)
+        password: password
       }).toPromise().then(user => {
         localStorage.setItem('bl.user', JSON.stringify(user));
         this.usercache = user;

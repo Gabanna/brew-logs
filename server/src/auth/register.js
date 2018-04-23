@@ -6,7 +6,7 @@ function register(app) {
   app.post("/auth/register", (req, res) => {
     let body = req.body;
     if (body) {
-        registerUser(body.email, body.password)
+        registerUser(body.email, body.username, body.password)
         .then(user => {
           res.status(201).send(user);
         })
@@ -23,7 +23,7 @@ function register(app) {
   });
 }
 
-function registerUser(email, password) {
+function registerUser(email, username, password) {
   return new Promise((resolve, reject) => {
     db
       .createConnection()
@@ -31,12 +31,13 @@ function registerUser(email, password) {
         let users = connection.collection("users");
         users.insertOne({
           email: email,
-          password: md5(password)
+          username: username,
+          password: password
         }, (err, doc) => {
             if(err) {
                 reject(err)
             } else {
-                resolve({ email: email });
+                resolve({ email: email, username: username });
             }
         });
 

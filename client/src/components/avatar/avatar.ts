@@ -11,7 +11,7 @@ export class AvatarComponent {
 
   private readonly gravatarUrlTemplate: string = 'https://www.gravatar.com/avatar/<hash>?s=32&d=robohash';
   gravatarUrl: string;
-  emailValue: string;
+  userValue: any;
 
   @Output()
   private logout = new EventEmitter();
@@ -19,15 +19,15 @@ export class AvatarComponent {
   constructor(private popoverCtrl: PopoverController){}
 
   @Input()
-  set email(email: string) {
-    this.emailValue = email;
-    if(email) {
-      this.gravatarUrl = this.gravatarUrlTemplate.replace('<hash>', md5(email));
+  set user(user: any) {
+    this.userValue = user;
+    if(user) {
+      this.gravatarUrl = this.gravatarUrlTemplate.replace('<hash>', md5(user.email));
     }
   }
 
   public showMenu(event): void {
-    var popover = this.popoverCtrl.create(AvatarMenuComponent, {email: this.emailValue});
+    var popover = this.popoverCtrl.create(AvatarMenuComponent, {username: this.userValue.username});
 
     popover.onDidDismiss((data, role) => {
       if(data) {

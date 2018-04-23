@@ -6,13 +6,13 @@ import { NavParams, ViewController } from "ionic-angular";
   templateUrl: "avatar-menu.html"
 })
 export class AvatarMenuComponent {
-  email: string;
+  username: string;
 
   constructor(
     private viewCtrl: ViewController,
     navParams: NavParams,
   ) {
-    this.email = navParams.get('email');
+    this.username = navParams.get('username');
   }
 
   public logout(): void {

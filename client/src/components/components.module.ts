@@ -5,16 +5,20 @@ import { IonicModule } from 'ionic-angular';
 import { BrewLogComponent } from './brew-log/brew-log';
 import { PipesModule } from '../pipes/pipes.module';
 import { LogoComponent } from './logo/logo';
+import { RegisterComponent } from './register/register';
+
 @NgModule({
   declarations: [AvatarComponent, AvatarMenuComponent,
     BrewLogComponent,
-    LogoComponent],
+    LogoComponent,
+    RegisterComponent],
   imports: [IonicModule, PipesModule],
   exports: [
     AvatarComponent,
     AvatarMenuComponent,
     BrewLogComponent,
-    LogoComponent],
-  entryComponents: [AvatarComponent]
+    LogoComponent,
+    RegisterComponent],
+  entryComponents: [AvatarComponent, RegisterComponent]
 })
 export class ComponentsModule {}
