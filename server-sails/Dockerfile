@@ -1,11 +1,14 @@
 FROM node:carbon
 WORKDIR /usr/src/app
-ENV port 3000
+ENV port 1337
 COPY package*.json ./
 RUN npm install
-COPY ./config ./config
+COPY ./api ./api
 COPY ./src ./src
-COPY ./index.js ./index.js
-RUN mkdir ./data
-EXPOSE 3000
+COPY ./config ./config
+COPY ./tasks ./tasks
+COPY ./views ./views
+COPY ./.sailsrc ./.sailsrc
+COPY ./app.js ./app.js
+EXPOSE 1337
 CMD ["npm", "start"]
