@@ -23,9 +23,9 @@ function register(app) {
 
 function login(email, password) {
   return new Promise((resolve, reject) => {
-    db
-      .createConnection()
-      .then(connection => {
+    db.find().make(filter => {
+      filter.where('')
+    })
         let users = connection.collection('users');
         let user = users.findOne({ $or: [{email: email}, {username: email}] }, (err, doc) => {
           if (err) {
@@ -41,9 +41,7 @@ function login(email, password) {
             }
           }
         });
-      })
-      .catch(err => reject({ error: err }));
-  });
+      };
 }
 
 module.exports = {
