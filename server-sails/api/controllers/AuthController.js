@@ -17,7 +17,7 @@ async function register(req, res) {
       });
     } else {
 
-        let user = await User.create(body);
+        let user = await User.create(body).fetch();
         login(req, res);
     }
   } else {
@@ -41,7 +41,7 @@ async function login(req, res) {
         user: { username: user.username, email: user.email }
       });
       res.set('Authorization', 'Bearer ' + token);
-      res.sendStatus(200);
+      res.status(200).send();
     } else {
       res.sendStatus(401);
     }

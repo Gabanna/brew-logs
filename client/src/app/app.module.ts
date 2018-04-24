@@ -8,7 +8,7 @@ import { HttpModule } from '@angular/http'
 import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
-import { AuthProvider } from '../providers/auth/auth';
+import { AuthProvider } from '../providers/auth';
 
 import * as Raven from 'raven-js';
 import { ToastProvider } from '../providers/toastProvider';

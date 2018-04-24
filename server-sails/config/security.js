@@ -28,9 +28,11 @@ module.exports.security = {
    ***************************************************************************/
 
   cors: {
-    allRoutes: false,
+    allRoutes: true,
     allowOrigins: '*',
-    allowCredentials: false
+    allowCredentials: false,
+    allowResponseHeaders: ['Authorization'],
+    allowRequestHeaders: ['Authorization', 'content-type']
   },
 
   apiKey: '82edf96f-cc58-4cfd-848c-8d88f996758a',

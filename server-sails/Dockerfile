@@ -4,7 +4,6 @@ ENV port 1337
 COPY package*.json ./
 RUN npm install
 COPY ./api ./api
-COPY ./src ./src
 COPY ./config ./config
 COPY ./tasks ./tasks
 COPY ./views ./views

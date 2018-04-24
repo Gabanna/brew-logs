@@ -1,4 +1,4 @@
-const authModule = require('./src/auth/auth');
+const authModule = require('./src/auth');
 const brewLogsModule = require('./src/brew-logs/brew-logs')
 
 require('./src/proxy')();

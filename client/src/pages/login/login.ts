@@ -5,7 +5,7 @@ import {
   NavParams,
   ModalController
 } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth/auth';
+import { AuthProvider } from '../../providers/auth';
 import { RavenErrorHandler } from '../../app/app.module';
 import { ToastProvider } from '../../providers/toastProvider';
 import { I18nPipe } from '../../pipes/i18n/i18n';

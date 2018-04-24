@@ -5,7 +5,7 @@ import {
   Content,
   ModalController
 } from "ionic-angular";
-import { AuthProvider } from "../../providers/auth/auth";
+import { AuthProvider } from "../../providers/auth";
 import { RavenErrorHandler } from "../../app/app.module";
 import { ToastProvider } from "../../providers/toastProvider";
 import { BrewLogProvider } from "../../providers/brew-log-provider";
@@ -31,7 +31,7 @@ export class HomePage {
   ) {
     this.setUser();
     this.brewLogProvider
-      .findBrewLogsByUser(this.user.email)
+      .findBrewLogsByUser(this.user.username)
       .then(brewLogs => (this.brewLogs = brewLogs))
       .catch(error => {
         this.toastProvider.toast('Es ist ein Fehler aufgetreten: ' + error).cssClass('error').show();

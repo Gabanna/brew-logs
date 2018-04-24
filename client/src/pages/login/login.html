@@ -20,6 +20,6 @@
 
     <button type="submit" ion-button full [disabled]="!login.username || !login.password">{{'login' | i18n}}</button>
   </form>
-  <button ion-button clear full (click)="doRegister()" [disabled]="!login.username || !login.password">{{'register' | i18n}}</button>
+  <button ion-button clear full (click)="doRegister()">{{'register' | i18n}}</button>
 
 </ion-content>

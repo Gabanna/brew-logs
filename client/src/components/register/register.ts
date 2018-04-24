@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { NavParams, ViewController, ToastController } from 'ionic-angular';
-import { AuthProvider } from "../../providers/auth/auth";
+import { AuthProvider } from "../../providers/auth";
 import { ToastProvider } from "../../providers/toastProvider";
 import md5 from 'md5';
 

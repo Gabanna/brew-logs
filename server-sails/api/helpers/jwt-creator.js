@@ -18,7 +18,6 @@ module.exports = {
 }
 
 async function createJwt(inputs, exits) {
-    console.info('inputs.user', inputs.user)
     let options = Object.assign({}, optionTemplate);
     options.subject = inputs.user.username;
     const token = jwt.sign(inputs.user, sails.config.security.apiKey, options)
