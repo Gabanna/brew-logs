@@ -15,4 +15,11 @@ export class BrewLogProvider {
             headers: authHeaders
         }).toPromise();
     }
+
+    public create(brewLog: any): Promise<any> {
+        let authHeaders = this.authProvider.getAuthorizationHeader();
+        return this.http.post(this.url, brewLog, {
+            headers: authHeaders
+        }).toPromise();
+    }
 }

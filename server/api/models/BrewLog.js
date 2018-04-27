@@ -5,5 +5,8 @@ module.exports = {
     author: { type: "number", required: true },
     name: { type: "string", required: true },
     users: { type: "ref" },
+    recipe: { model: "recipe" },
+    maischen: { model: "maischen" },
+    laeutern: { model: "laeutern" }
   }
 };

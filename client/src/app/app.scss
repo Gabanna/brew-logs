@@ -17,3 +17,15 @@
 
 //@import '../theme/variables.scss'; 
 @import '../theme/toast.scss'; 
+
+ion-title {
+    .toolbar-title {
+        color: map-get($colors, primary);
+    }
+}
+
+ion-navbar.toolbar {
+    .back-button {
+        color: map-get($colors, primary);
+    }
+}

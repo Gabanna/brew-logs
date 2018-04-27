@@ -13,7 +13,8 @@ async function findBrewLogsByUser(req, res) {
 
   let brewlogs = await BrewLog.find({
     or: [{ author: user.id }, { users: { contains: user.id } }]
-  });
+  }).popultae("maischen");
+  
   res.send(brewlogs || []);
 }
 
@@ -30,15 +31,14 @@ async function createBrewLog(req, res) {
       let user = await User.findOne({ username: jwt.username });
 
       if (user) {
-        let brewLog = await BrewLog.create({
-          author: user.id,
+        let brewLog = await sails.helpers.createBrewLog.with({
           name: logName,
-          users: []
-        }).fetch();
+          author: user.id
+        });
 
         res.status(201).send(brewLog);
       } else {
-        res.status(400).send("user " + jwt.username + "is unknown");
+        res.status(400).send("user " + jwt.username + " is unknown");
       }
     } else {
       res.status(400).send("name is required");

@@ -9,7 +9,8 @@ import { AuthProvider } from "../../providers/auth";
 import { RavenErrorHandler } from "../../app/app.module";
 import { ToastProvider } from "../../providers/toastProvider";
 import { BrewLogProvider } from "../../providers/brew-log-provider";
-import { RegisterComponent } from '../../components/register/register';
+import { RegisterComponent } from "../../components/register/register";
+import { NewLogComponent } from "../../components/new-log/new-log";
 
 @IonicPage()
 @Component({
@@ -30,17 +31,11 @@ export class HomePage {
     private brewLogProvider: BrewLogProvider
   ) {
     this.setUser();
-    this.brewLogProvider
-      .findBrewLogsByUser(this.user.username)
-      .then(brewLogs => (this.brewLogs = brewLogs))
-      .catch(error => {
-        this.toastProvider.toast('Es ist ein Fehler aufgetreten: ' + error).cssClass('error').show();
-        console.error(error);
-      });
+    this.loadBrewLogs();
   }
 
   open(brewLog): void {
-    this.navCtrl.push('BrewLogPage', {brewLog: brewLog});
+    this.navCtrl.push("BrewLogPage", { brewLog: brewLog });
   }
 
   logout(): void {
@@ -49,7 +44,38 @@ export class HomePage {
   }
 
   newLog(): void {
-    this.modalController.create(RegisterComponent, this.user);
+    let modal = this.modalController.create(NewLogComponent);
+    modal.onWillDismiss(brewLog => {
+      if (brewLog) {
+        this.brewLogProvider
+          .create(brewLog)
+          .then(() => {
+            this.loadBrewLogs();
+          })
+          .catch(error => {
+            this.toastProvider
+              .toast("Es ist ein Fehler aufgetreten: " + error)
+              .cssClass("error")
+              .show();
+            console.error(error);
+          });
+      }
+    });
+
+    modal.present();
+  }
+
+  private loadBrewLogs() {
+    this.brewLogProvider
+      .findBrewLogsByUser(this.user.username)
+      .then(brewLogs => (this.brewLogs = brewLogs))
+      .catch(error => {
+        this.toastProvider
+          .toast("Es ist ein Fehler aufgetreten: " + error)
+          .cssClass("error")
+          .show();
+        console.error(error);
+      });
   }
 
   private setUser() {
