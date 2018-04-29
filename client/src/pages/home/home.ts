@@ -11,6 +11,7 @@ import { ToastProvider } from "../../providers/toastProvider";
 import { BrewLogProvider } from "../../providers/brew-log-provider";
 import { RegisterComponent } from "../../components/register/register";
 import { NewLogComponent } from "../../components/new-log/new-log";
+import { LoadingProvider } from "../../providers/loading";
 
 @IonicPage()
 @Component({
@@ -28,8 +29,11 @@ export class HomePage {
     private authProvider: AuthProvider,
     private modalController: ModalController,
     private toastProvider: ToastProvider,
-    private brewLogProvider: BrewLogProvider
-  ) {
+    private brewLogProvider: BrewLogProvider,
+    private loadingProvider: LoadingProvider
+  ) {}
+
+  ionViewWillEnter() {
     this.setUser();
     this.loadBrewLogs();
   }
@@ -66,15 +70,20 @@ export class HomePage {
   }
 
   private loadBrewLogs() {
+    this.loadingProvider.show();
     this.brewLogProvider
       .findBrewLogsByUser(this.user.username)
-      .then(brewLogs => (this.brewLogs = brewLogs))
+      .then(brewLogs => {
+        this.brewLogs = brewLogs;
+        this.loadingProvider.hide()
+      })
       .catch(error => {
         this.toastProvider
           .toast("Es ist ein Fehler aufgetreten: " + error)
           .cssClass("error")
           .show();
         console.error(error);
+        this.loadingProvider.hide()
       });
   }
 

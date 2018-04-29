@@ -28,4 +28,28 @@ ion-navbar.toolbar {
     .back-button {
         color: map-get($colors, primary);
     }
+    
+    .toolbar-background-md {
+        background-color: white;
+    }
+}
+
+.loading-indicator {
+    height: 5px;
+    width: 100%;
+    .runner {
+        display: inline-block;
+        position: absolute;
+        height: 5px;
+        width: 100px;
+        background-color: map-get($colors, primary);
+        animation-name: floating;
+        animation-duration:  5s;
+        animation-iteration-count:  infinite;
+        animation-timing-function: linear;
+        @keyframes floating {
+            from {  left: -100px    }
+            to   {  left: 100% }
+        }
+    }
 }

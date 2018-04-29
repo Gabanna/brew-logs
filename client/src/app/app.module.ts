@@ -20,6 +20,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeFr from '@angular/common/locales/fr';
 import { BrewLogPageModule } from '../pages/brew-log/brew-log.module';
+import { LoadingProvider } from '../providers/loading';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeFr, 'fr');
@@ -57,7 +58,8 @@ export class RavenErrorHandler implements ErrorHandler {
     AuthProvider,
     BrewLogProvider,
     ToastProvider,
-    {provide: LOCALE_ID, useValue: navigator.language }
+    {provide: LOCALE_ID, useValue: navigator.language },
+    LoadingProvider
   ]
 })
 export class AppModule {}

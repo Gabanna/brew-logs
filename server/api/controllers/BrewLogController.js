@@ -13,7 +13,7 @@ async function findBrewLogsByUser(req, res) {
 
   let brewlogs = await BrewLog.find({
     or: [{ author: user.id }, { users: { contains: user.id } }]
-  }).popultae("maischen");
+  }).populate("maischen");
   
   res.send(brewlogs || []);
 }
