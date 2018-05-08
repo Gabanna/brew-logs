@@ -1,0 +1,8 @@
+{
+  "fields": [
+    {
+      "type": "array(Malz)",
+      "name": "Malze"
+    }
+  ]
+}
