@@ -1,8 +1,8 @@
 const config = {
-    api: { 
+    api: {
         ssl: false,
         host: 'localhost',
-        port: 1337,
+        port: 8080,
         key: '82edf96f-cc58-4cfd-848c-8d88f996758a'
     }
 }

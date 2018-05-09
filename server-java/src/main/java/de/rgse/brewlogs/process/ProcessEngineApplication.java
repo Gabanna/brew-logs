@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 @Startup
 @Singleton
-class ProcessEngineApplication extends EjbProcessApplication {
+public class ProcessEngineApplication extends EjbProcessApplication {
 
     @BrewLog
     @Inject
@@ -31,9 +31,8 @@ class ProcessEngineApplication extends EjbProcessApplication {
     private Logger logger = LogManager.getLogManager().getLogger(ProcessEngineApplication.class.getSimpleName());
 
     @PostConstruct
-    private void postConstruct() {
+    public void postConstruct() {
         RepositoryService repositoryService = processEngine.getRepositoryService();
-
 
         DeploymentBuilder deployment = repositoryService.createDeployment().enableDuplicateFiltering(true);
 
@@ -68,7 +67,7 @@ class ProcessEngineApplication extends EjbProcessApplication {
             for (ProcessDefinition processDefinition : deployWithResult.getDeployedProcessDefinitions()) {
                 stringBuilder
                         .append("\n")
-                        .append(String.format("\t\tv%s \t%s - %s\t\t(%s)", processDefinition.getVersion(), processDefinition.getName(), processDefinition.getKey(), processDefinition.getResourceName()));
+                        .append(String.format("\t\tv%s : %s : %s : %s", processDefinition.getVersion(), processDefinition.getName(), processDefinition.getKey(), processDefinition.getResourceName()));
             }
         }
 

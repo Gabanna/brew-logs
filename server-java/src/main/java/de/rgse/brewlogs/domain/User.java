@@ -1,6 +1,8 @@
 package de.rgse.brewlogs.domain;
 
 import javax.persistence.Entity;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class User extends BaseEntity {
@@ -36,4 +38,13 @@ public class User extends BaseEntity {
         return password;
     }
 
+    public Map<String,Object> toClaims() {
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("username", username);
+        result.put("email", email);
+        result.put("avatarUrl", avatarUrl);
+
+        return result;
+    }
 }

@@ -1,6 +1,7 @@
 package de.rgse.brewlogs.services;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import de.rgse.brewlogs.api.vo.LoginVo;
 import de.rgse.brewlogs.api.vo.RegisterVo;
 import de.rgse.brewlogs.domain.QUser;
 import de.rgse.brewlogs.domain.User;
@@ -9,6 +10,8 @@ import de.rgse.brewlogs.exceptions.UsernameEmailTakenException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.util.Optional;
 
 public class UserService {
 
@@ -20,9 +23,9 @@ public class UserService {
     public User registerUser(RegisterVo register) throws UserExistsException, UsernameEmailTakenException {
         User result = null;
 
-        long count = new JPAQuery<User>().from(USER).where(USER.username.equalsIgnoreCase(register.getUsername()).and(USER.email.equalsIgnoreCase(register.getEmail()))).fetchCount();
+        long count = new JPAQuery<User>(entityManager).from(USER).where(USER.username.equalsIgnoreCase(register.getUsername()).and(USER.email.equalsIgnoreCase(register.getEmail()))).fetchCount();
 
-        if(count == 0) {
+        if (count == 0) {
             count = new JPAQuery<User>(entityManager)
                     .from(USER)
                     .where(USER.username.equalsIgnoreCase(register.getUsername())
@@ -41,5 +44,14 @@ public class UserService {
         } else {
             throw new UserExistsException(register.getUsername());
         }
+    }
+
+    public Optional<User> login(LoginVo login) {
+        return Optional.ofNullable(new JPAQuery<User>(entityManager)
+                .from(USER)
+                .where(USER.password.eq(login.getPassword())
+                        .and(USER.username.equalsIgnoreCase(login.getUsername())
+                                .or(USER.email.equalsIgnoreCase(login.getUsername()))))
+                .fetchOne());
     }
 }

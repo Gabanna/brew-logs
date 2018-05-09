@@ -11,14 +11,14 @@ public class SystemPropertyProducer {
     public String produceProperty(InjectionPoint injectionPoint) {
         Annotated annotated = injectionPoint.getAnnotated();
         SystemProperty systemProperty = annotated.getAnnotation(SystemProperty.class);
-        String key = systemProperty.value().getKey();
+        SystemEnv key = systemProperty.value();
         return readValue(key);
     }
 
-    private String readValue(String key) {
-        String value = System.getProperty(key);
+    String readValue(SystemEnv systemEnv) {
+        String value = System.getProperty(systemEnv.getKey());
         if(value == null) {
-            value = System.getenv(key);
+            value = System.getenv(systemEnv.getKey());
         }
         return value;
     }
