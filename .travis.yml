@@ -1,12 +1,9 @@
 language: node_js
 node_js:
 - node
-addons:
-  ssh_known_hosts: 5.45.97.155
 sudo: required
 services:
 - docker
-- maven
 script:
 - npm install -g ionic cordova
 - cd client
@@ -16,12 +13,6 @@ script:
 - cd ../server-java
 - mvn clean package
 - docker build . -t rgse/brew-logs-server
-deploy:
- provider: script
- skip_cleanup: true
- script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin http://5.45.97.155:5000
-  - docker push http://5.45.97.155:5000/rgse/brew-logs-client
-  - docker push http://5.45.97.155:5000/rgse/brew-logs-server
- on:
-  branch: develop
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin http://5.45.97.155:5000
+- docker push http://5.45.97.155:5000/rgse/brew-logs-client
+- docker push http://5.45.97.155:5000/rgse/brew-logs-server
