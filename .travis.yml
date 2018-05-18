@@ -6,13 +6,15 @@ addons:
 sudo: required
 services:
 - docker
+- maven
 script:
 - npm install -g ionic cordova
 - cd client
 - npm install
 - ionic cordova build browser
-- docker build . -t rgse/brew-logs-web-client
-- cd ../server-sails
+- docker build . -t rgse/brew-logs-client
+- cd ../server-java
+- mvn clean package
 - docker build . -t rgse/brew-logs-server
 before_install:
 #- openssl aes-256-cbc -K $encrypted_bc7329f17379_key -iv $encrypted_bc7329f17379_iv -in ./deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -23,12 +25,12 @@ deploy:
  provider: script
  skip_cleanup: true
  script:
-  - mkdir -p /opt/docker/images
-  - docker save -o /opt/docker/images/brew-logs-web-client.tar rgse/brew-logs-web-client
-  - docker save -o /opt/docker/images/brew-logs-server.tar rgse/brew-logs-server
-  - scp /opt/docker/images/brew-logs-web-client.tar root@5.45.97.155:/opt/docker/images/brew-logs-web-client.tar
-  - scp /opt/docker/images/brew-logs-server.tar root@5.45.97.155:/opt/docker/images/brew-logs-server.tar
-  - ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-web-client.tar
-  - ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-server.tar
+  #- mkdir -p /opt/docker/images
+  #- docker save -o /opt/docker/images/brew-logs-web-client.tar rgse/brew-logs-web-client
+  #- docker save -o /opt/docker/images/brew-logs-server.tar rgse/brew-logs-server
+  #- scp /opt/docker/images/brew-logs-web-client.tar root@5.45.97.155:/opt/docker/images/brew-logs-web-client.tar
+  #- scp /opt/docker/images/brew-logs-server.tar root@5.45.97.155:/opt/docker/images/brew-logs-server.tar
+  #- ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-web-client.tar
+  #- ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-server.tar
  on:
   branch: develop
