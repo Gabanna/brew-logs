@@ -16,24 +16,12 @@ script:
 - cd ../server-java
 - mvn clean package
 - docker build . -t rgse/brew-logs-server
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 5.45.97.155:5000
-- docker push rgse/brew-logs-client
-- docker push rgse/brew-logs-server
-before_install:
-#- openssl aes-256-cbc -K $encrypted_bc7329f17379_key -iv $encrypted_bc7329f17379_iv -in ./deploy_rsa.enc -out /tmp/deploy_rsa -d
-#- eval "$(ssh-agent -s)"
-#- chmod 600 /tmp/deploy_rsa
-#- ssh-add /tmp/deploy_rsa
 deploy:
  provider: script
  skip_cleanup: true
  script:
-  #- mkdir -p /opt/docker/images
-  #- docker save -o /opt/docker/images/brew-logs-web-client.tar rgse/brew-logs-web-client
-  #- docker save -o /opt/docker/images/brew-logs-server.tar rgse/brew-logs-server
-  #- scp /opt/docker/images/brew-logs-web-client.tar root@5.45.97.155:/opt/docker/images/brew-logs-web-client.tar
-  #- scp /opt/docker/images/brew-logs-server.tar root@5.45.97.155:/opt/docker/images/brew-logs-server.tar
-  #- ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-web-client.tar
-  #- ssh root@5.45.97.155 docker load -i /opt/docker/images/brew-logs-server.tar
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin http://5.45.97.155:5000
+  - docker push http://5.45.97.155:5000/rgse/brew-logs-client
+  - docker push http://5.45.97.155:5000/rgse/brew-logs-server
  on:
   branch: develop
