@@ -16,6 +16,9 @@ script:
 - cd ../server-java
 - mvn clean package
 - docker build . -t rgse/brew-logs-server
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 5.45.97.155:5000
+- docker push rgse/brew-logs-client
+- docker push rgse/brew-logs-server
 before_install:
 #- openssl aes-256-cbc -K $encrypted_bc7329f17379_key -iv $encrypted_bc7329f17379_iv -in ./deploy_rsa.enc -out /tmp/deploy_rsa -d
 #- eval "$(ssh-agent -s)"
