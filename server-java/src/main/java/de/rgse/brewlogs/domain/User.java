@@ -1,5 +1,7 @@
 package de.rgse.brewlogs.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map;
 @Entity
 public class User extends BaseEntity {
 
+    @JsonProperty
     private String username;
     private String email;
     private String password;
@@ -41,6 +44,7 @@ public class User extends BaseEntity {
     public Map<String,Object> toClaims() {
         Map<String, Object> result = new HashMap<>();
 
+        result.put("id", getId());
         result.put("username", username);
         result.put("email", email);
         result.put("avatarUrl", avatarUrl);

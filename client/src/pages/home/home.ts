@@ -3,15 +3,15 @@ import {
   NavController,
   IonicPage,
   Content,
-  ModalController
+  ModalController,
+  AlertController
 } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth";
-import { RavenErrorHandler } from "../../app/app.module";
 import { ToastProvider } from "../../providers/toastProvider";
 import { BrewLogProvider } from "../../providers/brew-log-provider";
-import { RegisterComponent } from "../../components/register/register";
 import { NewLogComponent } from "../../components/new-log/new-log";
 import { LoadingProvider } from "../../providers/loading";
+import {I18nPipe} from "../../pipes/i18n/i18n";
 
 @IonicPage()
 @Component({
@@ -21,8 +21,10 @@ import { LoadingProvider } from "../../providers/loading";
 export class HomePage {
   @ViewChild(Content) content: Content;
 
-  private user: any;
-  private brewLogs: Array<any> = [];
+  user: any;
+  brewLogs: Array<any>;
+
+  private i18n: I18nPipe = new I18nPipe()
 
   constructor(
     public navCtrl: NavController,
@@ -30,8 +32,10 @@ export class HomePage {
     private modalController: ModalController,
     private toastProvider: ToastProvider,
     private brewLogProvider: BrewLogProvider,
-    private loadingProvider: LoadingProvider
-  ) {}
+    private loadingProvider: LoadingProvider,
+    private alertCtrl: AlertController
+  ) {
+  }
 
   ionViewWillEnter() {
     this.setUser();
@@ -39,7 +43,7 @@ export class HomePage {
   }
 
   open(brewLog): void {
-    this.navCtrl.push("BrewLogPage", { brewLog: brewLog });
+    this.navCtrl.push("BrewLogPage", { brewLog: brewLog }).catch(console.error);
   }
 
   logout(): void {
@@ -58,15 +62,45 @@ export class HomePage {
           })
           .catch(error => {
             this.toastProvider
-              .toast("Es ist ein Fehler aufgetreten: " + error)
+              .toast(this.i18n.transform("errorOccurred")+ ": " + error)
               .cssClass("error")
-              .show();
+              .show().catch(console.error);
             console.error(error);
           });
       }
     });
 
-    modal.present();
+    modal.present().catch(console.error);
+  }
+
+  remove(toDelete) {
+    let alert = this.alertCtrl.create({
+      message: this.i18n.transform('shouldDelete') + '?',
+      buttons: [
+        {
+          text: this.i18n.transform("cancle"),
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: this.i18n.transform("yes"),
+          handler: () => {
+            this.brewLogProvider.deleteBrewLog(toDelete.id).then(() => {
+              this.loadBrewLogs();
+              this.toastProvider
+                .toast(this.i18n.transform("deletionSuccessful"))
+                .cssClass("success")
+                .duration(5000)
+                .show().catch(console.error);
+            })
+              .catch(console.error);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   private loadBrewLogs() {
@@ -81,7 +115,7 @@ export class HomePage {
         this.toastProvider
           .toast("Es ist ein Fehler aufgetreten: " + error)
           .cssClass("error")
-          .show();
+          .show().catch(console.error);
         console.error(error);
         this.loadingProvider.hide()
       });
@@ -92,7 +126,7 @@ export class HomePage {
     if (!this.user) {
       this.navCtrl.setRoot("LoginPage", {
         from: HomePage
-      });
+      }).catch(console.error);
     }
   }
 }

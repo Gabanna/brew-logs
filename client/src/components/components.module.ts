@@ -7,6 +7,7 @@ import { PipesModule } from "../pipes/pipes.module";
 import { LogoComponent } from "./logo/logo";
 import { RegisterComponent } from "./register/register";
 import { NewLogComponent } from './new-log/new-log';
+import { LoaderComponent } from './loader/loader';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NewLogComponent } from './new-log/new-log';
     BrewLogComponent,
     LogoComponent,
     RegisterComponent,
-    NewLogComponent
+    NewLogComponent,
+    LoaderComponent
   ],
   imports: [IonicModule, PipesModule],
   exports: [
@@ -23,7 +25,8 @@ import { NewLogComponent } from './new-log/new-log';
     AvatarMenuComponent,
     BrewLogComponent,
     LogoComponent,
-    RegisterComponent, NewLogComponent
+    RegisterComponent, NewLogComponent,
+    LoaderComponent
   ],
   entryComponents: [AvatarComponent, RegisterComponent, NewLogComponent]
 })

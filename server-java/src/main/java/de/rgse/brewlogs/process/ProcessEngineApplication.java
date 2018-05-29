@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 @Singleton
 public class ProcessEngineApplication extends EjbProcessApplication {
 
-    @BrewLog
     @Inject
     private ProcessEngine processEngine;
 

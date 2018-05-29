@@ -18,6 +18,14 @@
   <!-- cordova.js required for cordova apps (remove if not needed) -->
   <script src="cordova.js"></script>
 
+  <style>
+    .dash-loader {
+      width: 64px;
+      margin: auto;
+    }
+
+  </style>
+
   <!-- un-comment this code to enable service worker
   <script>
     if ('serviceWorker' in navigator) {
@@ -33,7 +41,9 @@
 <body>
 
   <!-- Ionic's root component and where the app will load -->
-  <ion-app></ion-app>
+  <ion-app>
+    <img class="dash-loader" src="/assets/imgs/382.gif">
+  </ion-app>
 
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>

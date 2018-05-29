@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {BrewLogProvider} from "../../providers/brew-log-provider";
 
 @IonicPage()
 @Component({
@@ -9,12 +10,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class BrewLogPage {
 
   brewLog: any = {};
+  processes: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public brewLogController: BrewLogProvider, public navParams: NavParams) {
   }
 
   ionViewWillLoad() {
-      this.brewLog = this.navParams.get('brewLog');
+    this.brewLog = this.navParams.get('brewLog');
+    if (this.brewLog) {
+      this.brewLogController.findProcessForBrewLog(this.brewLog.id).then(processes => {
+        this.processes = processes;
+      })
+        .catch(console.error);
+    }
   }
 
 }

@@ -2,7 +2,7 @@ package de.rgse.brewlogs.env;
 
 public enum SystemEnv {
 
-    BL_API_KEY(true), NULL(false), BL_TOKEN_EXPIRATION(true);
+    BL_API_KEY(true), BL_TOKEN_EXPIRATION(true);
 
     private String key;
     private boolean mandatory;

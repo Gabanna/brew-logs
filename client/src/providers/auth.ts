@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import config from "../config/config";
 import baseUrl from './baseUrl';
@@ -33,30 +33,22 @@ export class AuthProvider {
   public register(username, email, password): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .post(
+        .post<{token: string}>(
           this.url,
           {
             username: username,
             email: email,
             password: password
-          },
-          { observe: "response" }
+          }
         )
-        .toPromise()
-        .then(response => {
-          let authHeader = response.headers.get("Authorization");
-
+        .subscribe(token => {
           try {
-            let user = jwt.verify(
-              authHeader.replace("Bearer ", ""),
-              config.api.key
-            );
+            let user = this.processToken(token);
             resolve(user);
           } catch (err) {
             reject(err);
           }
-        })
-        .catch(reject);
+        }, error => reject(error))
     });
   }
 
@@ -69,33 +61,34 @@ export class AuthProvider {
   public login(username, password): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .put(
+        .put<{token: string}>(
           this.url,
           {
             username: username,
             password: password
-          },
-          { observe: "response" }
+          }
         )
-        .toPromise()
-        .then(response => {
-          let authHeader = response.headers.get("Authorization");
-          console.info("response.headers", JSON.stringify(response.headers))
-
+        .subscribe(authHeader => {
           try {
-            let user = jwt.verify(
-              authHeader.replace("Bearer ", ""),
-              config.api.key
-            );
-            localStorage.setItem("bl.user", JSON.stringify(user));
-            localStorage.setItem("bl.token", authHeader);
-            this.usercache = user;
+            let user = this.processToken(authHeader);
             resolve(user);
           } catch (err) {
             reject(err);
           }
-        })
-        .catch(reject);
+        }, error => reject(error))
     });
+  }
+
+  private processToken(token: {token: string}): any {
+    let trimmed = token.token.replace("Bearer ", "");
+    let apiKey = config.api.key;
+    let user = jwt.verify(
+      trimmed,
+      apiKey
+    );
+    localStorage.setItem("bl.user", JSON.stringify(user));
+    localStorage.setItem("bl.token", token.token);
+    this.usercache = user;
+    return user;
   }
 }

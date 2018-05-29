@@ -5,6 +5,7 @@ brew-log {
   .brew-log-author {
     color: map-get($colors, secondary);
     font-size: .8em;
+    float: right;
   }
   .brew-log-created {
     display: block;

@@ -9,7 +9,16 @@ const data = {
     username: "Benutzername",
     userOrEmail: "Benutzer / E-Mail",
     email: "E-Mail",
-    password: "Kennwort"
+    password: "Kennwort",
+    loginFailed: "Die Anmeldung ist fehlgeschlagen. Bitte prüfen Sie Ihre Eingaben.",
+    name: "Name",
+    newLog: "neues Protokoll anlegen",
+    noLog: "Es liegt noch kein Brauprotokoll vor",
+    errorOccurred: "Es ist ein Fehler aufgetreten",
+    deletionSuccessful: "Das Log wurde erfolgreich entfernt",
+    shouldDelete: "Brauprotokoll löschen",
+    yes: "Ja",
+    cancle: "Abbrechen"
   },
   en: {
     login: "login",

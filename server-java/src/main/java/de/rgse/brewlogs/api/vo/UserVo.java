@@ -14,12 +14,6 @@ public class UserVo {
     @JsonProperty
     private String avatarUrl;
 
-    public UserVo(User user) {
-        this.username = user.getUsername();
-        this.email = user.getEmail();
-        this.avatarUrl = user.getAvatarUrl();
-    }
-
     public String getUsername() {
         return username;
     }
@@ -30,5 +24,13 @@ public class UserVo {
 
     public String getAvatarUrl() {
         return avatarUrl;
+    }
+
+    public static UserVo of(User user) {
+        UserVo userVo = new UserVo();
+        userVo.username = user.getUsername();
+        userVo.email = user.getEmail();
+        userVo.avatarUrl = user.getAvatarUrl();
+        return userVo;
     }
 }

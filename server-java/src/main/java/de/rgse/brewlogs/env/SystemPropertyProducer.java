@@ -7,7 +7,7 @@ import javax.enterprise.inject.spi.InjectionPoint;
 public class SystemPropertyProducer {
 
     @Produces
-    @SystemProperty(SystemEnv.NULL)
+    @SystemProperty(SystemEnv.BL_API_KEY)
     public String produceProperty(InjectionPoint injectionPoint) {
         Annotated annotated = injectionPoint.getAnnotated();
         SystemProperty systemProperty = annotated.getAnnotation(SystemProperty.class);

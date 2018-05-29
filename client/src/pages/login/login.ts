@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   NavController,
   IonicPage,
   NavParams,
   ModalController
 } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth';
-import { RavenErrorHandler } from '../../app/app.module';
-import { ToastProvider } from '../../providers/toastProvider';
-import { I18nPipe } from '../../pipes/i18n/i18n';
-import { RegisterComponent } from '../../components/register/register';
+import {AuthProvider} from '../../providers/auth';
+import {ToastProvider} from '../../providers/toastProvider';
+import {I18nPipe} from '../../pipes/i18n/i18n';
+import {RegisterComponent} from '../../components/register/register';
 import md5 from 'md5';
 
 @IonicPage()
@@ -27,7 +26,7 @@ export class LoginPage {
     private navParams: NavParams,
     private authProvider: AuthProvider,
     private toastProvider: ToastProvider,
-    private modalContoller: ModalController
+    private modalController: ModalController
   ) {
     this.i18n = new I18nPipe();
   }
@@ -36,34 +35,45 @@ export class LoginPage {
     this.authProvider
       .login(this.login.username, md5(this.login.password))
       .then(data => {
-        
-        let target = this.navParams.get('from');
-        this.navCtrl.setRoot(target ? target : 'HomePage');
-        this.toastProvider
-          .toast(this.i18n.transform('welcome') + ' ' + data.username)
-          .cssClass('success')
-          .duration(5000)
-          .show();
+          this.onLogin(data);
       })
       .catch(error => {
-        this.toastProvider
-          .toast(error)
-          .cssClass('error')
-          .showCloseButton(true)
-          .show();
-        console.error(error)
+        if (error.status == 401) {
+          this.toastProvider
+            .toast(this.i18n.transform('loginFailed'))
+            .position('top')
+            .cssClass('error')
+            .duration(5000)
+            .show().catch(console.error);
+          this.login.password = null;
+        } else {
+          this.toastProvider
+            .toast(error)
+            .cssClass('error')
+            .showCloseButton(true)
+            .show().catch(console.error);
+          console.error(error)
+        }
       });
   }
 
   public doRegister() {
-    let registerModal = this.modalContoller.create(RegisterComponent, this.login);
+    let registerModal = this.modalController.create(RegisterComponent, this.login);
     registerModal.onWillDismiss(data => {
-      if(data) {
-        this.login = data.user;
-        this.login.password = data.password;
-        this.doLogin();
+      if (data) {
+        this.onLogin(data);
       }
     });
-    registerModal.present();
+    registerModal.present().catch(console.error);
+  }
+
+  private onLogin(user: {username: string}) {
+    let target = this.navParams.get('from');
+    this.navCtrl.setRoot(target ? target : 'HomePage').catch(console.error);
+    this.toastProvider
+      .toast(this.i18n.transform('welcome') + ' ' + user.username)
+      .cssClass('success')
+      .duration(5000)
+      .show().catch(console.error);
   }
 }

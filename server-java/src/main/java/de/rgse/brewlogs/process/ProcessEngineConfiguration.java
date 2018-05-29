@@ -1,6 +1,8 @@
 package de.rgse.brewlogs.process;
 
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.TaskService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -28,13 +30,23 @@ public class ProcessEngineConfiguration {
                 .setCreateIncidentOnFailedJobEnabled(true)
                 .setTransactionsExternallyManaged(true);
         engineConfiguration.setHistory(org.camunda.bpm.engine.ProcessEngineConfiguration.HISTORY_FULL);
-        engineConfiguration.setDataSourceJndiName("java:jboss/datasources/ExampleDS");
+        engineConfiguration.setDataSourceJndiName("java:jboss/datasources/PDS");
         processEngine = engineConfiguration.buildProcessEngine();
     }
 
     @Produces
-    @BrewLog
     public ProcessEngine createEngine() {
         return processEngine;
+    }
+
+    @Produces
+    public RuntimeService produceRuntimeService() {
+        return processEngine.getRuntimeService();
+    }
+
+
+    @Produces
+    public TaskService produceTaskService() {
+        return processEngine.getTaskService();
     }
 }

@@ -7,5 +7,6 @@
 
     <interceptors>
         <class>de.rgse.brewlogs.services.ValidatorInterceptor</class>
+        <class>de.rgse.brewlogs.api.util.JwtSecuredInterceptor</class>
     </interceptors>
 </beans>

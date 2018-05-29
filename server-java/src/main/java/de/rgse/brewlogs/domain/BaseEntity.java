@@ -1,5 +1,6 @@
 package de.rgse.brewlogs.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rgse.brewlogs.domain.converters.LocalDateTimeConverter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
+    @JsonProperty
     private long id;
 
     @Version
@@ -34,7 +36,7 @@ public class BaseEntity implements Serializable {
         return updated;
     }
 
-    @PostPersist
+    @PrePersist
     private void onPersist() {
         this.created = LocalDateTime.now();
         this.version = 1;

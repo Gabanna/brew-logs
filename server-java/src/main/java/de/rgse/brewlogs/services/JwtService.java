@@ -25,13 +25,8 @@ public class JwtService {
     public Optional<Claims> validateJwt(String token) {
         Optional<Claims> result;
 
-        try {
-            Jws<Claims> jwt = Jwts.parser().setSigningKey(apiKey).parseClaimsJws(token);
-            result = Optional.ofNullable(jwt.getBody());
-
-        } catch (JwtException e) {
-            result = Optional.empty();
-        }
+        Jws<Claims> jwt = Jwts.parser().setSigningKey(apiKey.getBytes()).parseClaimsJws(token.replace("Bearer ", ""));
+        result = Optional.ofNullable(jwt.getBody());
 
         return result;
     }
@@ -39,7 +34,7 @@ public class JwtService {
     public String createJwt(User user) {
         long now = System.currentTimeMillis();
         return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS512, apiKey)
+                .signWith(SignatureAlgorithm.HS512, apiKey.getBytes())
                 .setSubject(user.getUsername())
                 .setIssuer(getClass().getSimpleName())
                 .setId(UUID.randomUUID().toString())

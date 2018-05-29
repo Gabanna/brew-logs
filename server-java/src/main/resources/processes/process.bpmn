@@ -22,6 +22,8 @@
     <bpmn:callActivity id="Task_0jz4brc" name="Maischen" calledElement="Process_Maischen">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1e7hlpu</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0xd4851</bpmn:outgoing>
@@ -35,6 +37,8 @@
     <bpmn:callActivity id="Task_1635ym1" name="Vorbereitung" calledElement="Process_Vorbereitung">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_134hvyb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1e7hlpu</bpmn:outgoing>
@@ -42,6 +46,8 @@
     <bpmn:callActivity id="Task_1fgef55" name="Läutern" calledElement="Process_Laeutern">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0xd4851</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_00pjwcp</bpmn:outgoing>
@@ -49,6 +55,8 @@
     <bpmn:callActivity id="Task_0nq4rdq" name="Hopfenkochen" calledElement="Process_Hopfenkochen">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_00pjwcp</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_03up4js</bpmn:outgoing>
@@ -56,6 +64,8 @@
     <bpmn:callActivity id="Task_0gj8nzl" name="Würze kühlen &#38; filtern" calledElement="Process_WuerzeKuehlenFiltern">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_03up4js</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0jysejh</bpmn:outgoing>
@@ -63,6 +73,8 @@
     <bpmn:callActivity id="Task_1d10ver" name="Gärung" calledElement="Process_Gaerung">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0jysejh</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0aq5udd</bpmn:outgoing>
@@ -70,6 +82,8 @@
     <bpmn:callActivity id="Task_08v4jxj" name="Abfüllen" calledElement="Process_Abfuellen">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0aq5udd</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_021r4kk</bpmn:outgoing>

@@ -1,25 +1,41 @@
 package de.rgse.brewlogs.env;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Provider
-public class CORSFilter implements ContainerResponseFilter {
+@WebFilter(urlPatterns = "*")
+public class CORSFilter implements Filter {
+
+    private static final String HEADERS = "Content-Type, Authorization, Accept, Accept-Language, content-type, authorization, accept, accept-language";
 
     @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
-        responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
-        responseContext.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
-        responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+    public void init(FilterConfig filterConfig) throws ServletException {
+        //unused
+    }
 
-        if (requestContext.getMethod().equals("OPTIONS")) {
-            responseContext.setStatus(Response.Status.OK.getStatusCode());
-            responseContext.setEntity(null);
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
+
+        response.setHeader("Access-Control-Allow-Origin", "*"); // If you want to be more restrictive it could be localhost:4200
+        response.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS, DELETE"); // You can add HEAD, DELETE, TRACE, PATCH
+        response.setHeader("Access-Control-Allow-Headers", HEADERS); // You can add many more
+        response.setHeader("Allow-access-expose-headers", HEADERS); // You can add many more
+
+        if(request.getMethod().equalsIgnoreCase("OPTIONS")) {
+            response.setStatus(200);
+        } else {
+            chain.doFilter(request, response);
         }
+
+    }
+
+    @Override
+    public void destroy() {
+        //unused
     }
 }
