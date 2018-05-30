@@ -76,11 +76,18 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
+    <platform name="browser">
+        <preference name="SplashScreen" value="/assets/imgs/logo/512.png" />
+        <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="SplashScreenBackgroundColor" value="#488aff" />
+        <preference name="SplashScreenWidth" value="512" />
+        <preference name="SplashScreenHeight" value="626" />
+    </platform>
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.2.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <engine name="android" spec="7.0.0" />
-    <engine name="browser" spec="^5.0.3" />
+    <engine name="browser" spec="5.0.3" />
 </widget>

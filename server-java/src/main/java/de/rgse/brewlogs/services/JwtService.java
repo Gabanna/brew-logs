@@ -33,15 +33,20 @@ public class JwtService {
 
     public String createJwt(User user) {
         long now = System.currentTimeMillis();
-        return Jwts.builder()
+        JwtBuilder jwtBuilder = Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, apiKey.getBytes())
                 .setSubject(user.getUsername())
                 .setIssuer(getClass().getSimpleName())
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + Long.valueOf(tokenExpiration)))
-                .addClaims(user.toClaims())
-                .compact();
+                .addClaims(user.toClaims());
+
+        long exp;
+        if(tokenExpiration != null && (exp = Long.valueOf(tokenExpiration)) > 0) {
+            jwtBuilder.setExpiration(new Date(now + exp));
+        }
+
+        return jwtBuilder.compact();
     }
 
     public String createBearerToken(User user) {
