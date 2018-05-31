@@ -8,8 +8,10 @@
 
 
 <ion-content padding>
-  <p>{{brewLog | json}}</p>
-  <p>
-    {{processes | json}}
-  </p>
+<section *ngFor="let process of processes">
+  <h2>{{process.name}}</h2>
+  <form (ngSubmit)="submitForm()">
+    <form-field [field]="field" *ngFor="let field of process.form.fields"></form-field>
+  </form>
+</section>
 </ion-content>

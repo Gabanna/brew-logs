@@ -1,0 +1,13 @@
+{
+  "fields": [
+    {
+      "type": "array",
+      "ref": "Malz",
+      "name": "malts"
+    },
+    {
+      "type": "string",
+      "name": "remark"
+    }
+  ]
+}

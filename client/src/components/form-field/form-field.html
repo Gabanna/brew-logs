@@ -1,0 +1,35 @@
+<ion-item *ngIf="field.type != 'array'">
+  <ion-label floating>{{field.name | i18n }}</ion-label>
+  <ion-input [(ngModel)]="field.value" type="{{field.type}}" *ngIf="field.name != 'remark'"></ion-input>
+  <ion-textarea [(ngModel)]="field.value" *ngIf="field.name == 'remark'"></ion-textarea>
+</ion-item>
+<section *ngIf="field.type == 'array'">
+  <ion-list>
+    <ion-list-header>
+      {{field.name | i18n }}
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let listItem of field.value">
+      <ion-item (ngSwipe)="listItem.editable = true">
+        <ion-input *ngIf="listItem.editable" [(ngModel)]="listItem.quantity" type="number" placeholder="0"></ion-input>
+        <ion-input *ngIf="listItem.editable" [(ngModel)]="listItem.name" placeholder="Name"></ion-input>
+        <ion-label *ngIf="!listItem.editable">{{listItem.quantity}} {{listItem.name}}</ion-label>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button (click)="removeItem(listItem)" class="delete">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+        <button *ngIf="listItem.editable" ion-button (click)="onSave(listItem)">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <section class="adding">
+    <button ion-button (click)="addItem($event)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </section>
+</section>
+

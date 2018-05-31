@@ -1,6 +1,8 @@
 package de.rgse.brewlogs.api.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.rgse.brewlogs.domain.Form;
+import de.rgse.brewlogs.services.FormResolver;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -20,7 +22,7 @@ public class TaskVo {
     private String assignee;
 
     @JsonProperty
-    private String form;
+    private Form form;
 
     @JsonProperty
     private String id;
@@ -38,7 +40,7 @@ public class TaskVo {
         return assignee;
     }
 
-    public String getForm() {
+    public Form getForm() {
         return form;
     }
 
@@ -66,7 +68,6 @@ public class TaskVo {
         result.name = task.getName();
         result.definitionKey = task.getTaskDefinitionKey();
         result.processInstanceId = task.getProcessInstanceId();
-        result.form = readForm(task);
 
         return result;
     }
@@ -75,17 +76,8 @@ public class TaskVo {
         return null == tasks ? Collections.emptyList() : tasks.stream().map(task -> TaskVo.of(task)).collect(Collectors.toList());
     }
 
-    private static String readForm(Task task) {
-        String result = null;
-        String file = "/forms/" + task.getFormKey();
-        try (InputStream inputStream = TaskVo.class.getResourceAsStream(file)){
-            if(inputStream != null) {
-                result = IOUtils.toString(inputStream, "UTF-8");
-            }
-        } catch(IOException e) {
-            LogManager.getLogManager().getLogger(TaskVo.class.getCanonicalName()).log(java.util.logging.Level.SEVERE, "unable to load file " + file, e);
-        }
 
-        return result;
+    public void setForm(Form form) {
+        this.form = form;
     }
 }

@@ -1,6 +1,7 @@
 package de.rgse.brewlogs.process;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.camunda.bpm.application.impl.EjbProcessApplication;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RepositoryService;
@@ -12,9 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.URL;
 import java.util.Collection;
 import java.util.logging.LogManager;
@@ -44,7 +43,7 @@ public class ProcessEngineApplication extends EjbProcessApplication {
                     String filePath = file.getPath();
                     deployment.addInputStream(filePath, new FileInputStream(file));
 
-                } catch (FileNotFoundException e) {
+                } catch (IOException e) {
                     logger.severe("unable to deploy " + e.getMessage());
                 }
             });

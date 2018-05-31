@@ -15,8 +15,8 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-//@import '../theme/variables.scss'; 
-@import '../theme/toast.scss'; 
+//@import '../theme/variables.scss';
+@import '../theme/toast.scss';
 
 ion-title {
     .toolbar-title {
@@ -28,7 +28,7 @@ ion-navbar.toolbar {
     .back-button {
         color: map-get($colors, primary);
     }
-    
+
     .toolbar-background-md {
         background-color: white;
     }
@@ -52,4 +52,14 @@ ion-navbar.toolbar {
             to   {  left: 100% }
         }
     }
+}
+
+ion-item-options {
+  button.delete {
+    background-color: map_get($colors, danger);
+    &:hover:not(.disable-hover) {
+      background-color: map_get($colors, danger);
+      opacity: .8;
+    }
+  }
 }

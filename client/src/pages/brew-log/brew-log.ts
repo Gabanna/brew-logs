@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {BrewLogProvider} from "../../providers/brew-log-provider";
 import {LoadingProvider} from "../../providers/loading";
 
+
 @IonicPage()
 @Component({
   selector: 'page-brew-log',
@@ -14,6 +15,7 @@ export class BrewLogPage {
   processes: Array<any>;
 
   constructor(public brewLogController: BrewLogProvider, public navParams: NavParams, private loadingProvider: LoadingProvider) {
+
   }
 
   ionViewWillLoad() {
@@ -30,5 +32,4 @@ export class BrewLogPage {
         });
     }
   }
-
 }

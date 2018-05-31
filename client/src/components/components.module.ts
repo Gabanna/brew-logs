@@ -8,6 +8,7 @@ import { LogoComponent } from "./logo/logo";
 import { RegisterComponent } from "./register/register";
 import { NewLogComponent } from './new-log/new-log';
 import { LoaderComponent } from './loader/loader';
+import { FormFieldComponent } from './form-field/form-field';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoaderComponent } from './loader/loader';
     LogoComponent,
     RegisterComponent,
     NewLogComponent,
-    LoaderComponent
+    LoaderComponent,
+    FormFieldComponent
   ],
   imports: [IonicModule, PipesModule],
   exports: [
@@ -26,7 +28,8 @@ import { LoaderComponent } from './loader/loader';
     BrewLogComponent,
     LogoComponent,
     RegisterComponent, NewLogComponent,
-    LoaderComponent
+    LoaderComponent,
+    FormFieldComponent
   ],
   entryComponents: [AvatarComponent, RegisterComponent, NewLogComponent]
 })

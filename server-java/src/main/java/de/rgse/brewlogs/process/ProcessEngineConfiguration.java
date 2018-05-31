@@ -1,8 +1,6 @@
 package de.rgse.brewlogs.process;
 
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -48,5 +46,15 @@ public class ProcessEngineConfiguration {
     @Produces
     public TaskService produceTaskService() {
         return processEngine.getTaskService();
+    }
+
+    @Produces
+    public FormService produceFormService() {
+        return processEngine.getFormService();
+    }
+
+    @Produces
+    public RepositoryService produceRepositoryService() {
+        return processEngine.getRepositoryService();
     }
 }

@@ -88,8 +88,8 @@ public class BrewLogEndpoint extends AbstractEndpoint {
     @Path("{brewLogId}/process")
     public Response findBrewLogProcess(@PathParam("brewLogId") long brewLogId) {
         try {
-            List<Task> tasks = processService.findTasksByLog(brewLogId);
-            return Response.ok(TaskVo.of(tasks)).build();
+            List<TaskVo> tasks = processService.findTasksByLog(brewLogId);
+            return Response.ok(tasks).build();
         } catch (IllegalStateException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 

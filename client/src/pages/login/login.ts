@@ -31,6 +31,12 @@ export class LoginPage {
     this.i18n = new I18nPipe();
   }
 
+  ionViewWillEnter() {
+    if(this.authProvider.hasValidSession()) {
+      this.navCtrl.setRoot('HomePage')
+    }
+  }
+
   public doLogin() {
     this.authProvider
       .login(this.login.username, md5(this.login.password))

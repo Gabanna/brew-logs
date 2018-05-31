@@ -91,4 +91,23 @@ export class AuthProvider {
     this.usercache = user;
     return user;
   }
+
+  hasValidSession(): boolean {
+    let valid = this.getCurrentUser() != null;
+
+    if(valid) {
+      let token = localStorage.getItem("bl.token");
+      try {
+        let apiKey = config.api.key;
+        let user = jwt.verify(
+          token.replace("Bearer ", ""),
+          apiKey
+        );
+      } catch(error) {
+        valid = false;
+      }
+    }
+
+    return valid;
+  }
 }

@@ -98,7 +98,15 @@
       <bpmn:incoming>SequenceFlow_1y11c54</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1y11c54" sourceRef="UserTask_BraudatenErfassen" targetRef="EndEvent_Vorbereitung" />
-    <bpmn:userTask id="UserTask_BraudatenErfassen" name="Braudaten erfassen">
+    <bpmn:userTask id="UserTask_BraudatenErfassen" name="Braudaten erfassen" camunda:formKey="braudaten_erfassen.json">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="test" label="test" type="string" />
+        </camunda:formData>
+        <camunda:properties>
+          <camunda:property name="formKey" value="braudaten_erfassen.json" />
+        </camunda:properties>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_04dpbpt</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1y11c54</bpmn:outgoing>
     </bpmn:userTask>
